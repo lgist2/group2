@@ -1,4 +1,4 @@
-# Intro to SE Sprint Project
+# Intro to SE Project: Facebook
 
 **Instructor:** Dr. Charan Gudla
 
