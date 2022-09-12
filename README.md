@@ -23,7 +23,7 @@
 Language: Python
 Software: Django
 
-Description: A social media platform that let's people connect with friends and create their own profile and posts
+Description: A Facebook like social media platform V1.0: a social media platform allowing users to connect with friends by composing statuses that can be posted to his/her timeline, add friends, and interact with friends’ posts. 
 
 Features:
 - [] Create account
