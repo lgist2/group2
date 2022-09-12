@@ -8,7 +8,7 @@
 
 ## TEAM MEMBERS:
 
--**Levi Gist** (Project Leader, NetID: , Github: [lgist2](https://github.com/lgist2))
+-**Levi Gist** (Project Leader, NetID: lig17, Github: [lgist2](https://github.com/lgist2))
 
 -**Cassie Javorsky** (Role, NetID: clj500, Github: [clj500](https://github.com/clj500))
 
