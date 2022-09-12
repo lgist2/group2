@@ -12,7 +12,7 @@
 
 -**Cassie Javorsky** (Role, NetID: clj500, Github: [clj500](https://github.com/clj500))
 
--**Name here** (Role, NetID: , Github: )
+-**Landon Berg** (Team Member, NetID: rlb879 , Github: [rlb32](https://github.com/rlb32))
 
 -**Name here** (Role, NetID: , Github: )
 
