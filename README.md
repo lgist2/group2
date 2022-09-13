@@ -21,25 +21,26 @@
 ## PROJECT OVERVIEW:
 
 Language: Python
+
 Software: Django
 
 Description: A Facebook like social media platform V1.0: a social media platform allowing users to connect with friends by composing statuses that can be posted to his/her timeline, add friends, and interact with friends’ posts. 
 
 Features:
-- [] Create account
-- [] Edit account info (change username, password, etc)
-- [] Change account privacy
-- [] Edit profile (profile picture, public name, bio)
+- [ ] Create account
+- [ ] Edit account info (change username, password, etc)
+- [ ] Change account privacy
+- [ ] Edit profile (profile picture, public name, bio)
 
-- [] Create posts
-- [] View others' posts
-- [] Comment on posts
-- [] Delete posts
+- [ ] Create posts
+- [ ] View others' posts
+- [ ] Comment on posts
+- [ ] Delete posts
 
-- [] Send friend requests
-- [] Accept friend requests
-- [] View friends/profiles
-- [] Remove friends
+- [ ] Send friend requests
+- [ ] Accept friend requests
+- [ ] View friends/profiles
+- [ ] Remove friends
 
 Goals:
 - Allow users to create and manage accounts
