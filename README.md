@@ -14,7 +14,7 @@
 
 -**Landon Berg** (Team Member, NetID: rlb879 , Github: [rlb32](https://github.com/rlb32))
 
--**Name here** (Role, NetID: , Github: )
+-**Ethan Page** (Team Member, NetID: , Github:[etp67](https://github.com/etp67))
 
 
 
