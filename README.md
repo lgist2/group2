@@ -12,9 +12,9 @@
 
 -**Cassie Javorsky** (Team Member, NetID: clj500, Github: [clj500](https://github.com/clj500))
 
--**Landon Berg** (Team Member, NetID: rlb879 , Github: [rlb32](https://github.com/rlb32))
+-**Landon Berg** (Team Member, NetID: rlb879, Github: [rlb32](https://github.com/rlb32))
 
--**Ethan Page** (Team Member, NetID: , Github:[etp67](https://github.com/etp67))
+-**Ethan Page** (Team Member, NetID: etp67, Github: [etp67](https://github.com/etp67))
 
 
 

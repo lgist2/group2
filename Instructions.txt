@@ -1,0 +1,38 @@
+Instructions:
+1.	Need python
+	- Install python via python.org
+
+2. cmd 
+	- python --version
+	- check pip installation
+	- pip --version
+	if installed -> continue
+	else -> install pip, google it
+3. virtual env
+	- still in cmd
+	- cd into the folder holding Social-Grid project
+	- stor virtual environment there
+	- python -m virtualenv <name of virtual env>
+	- //need virtural environment becasue installing django on your machine
+		could interfere with your normal python
+	- now go where you created your virtual env and cd into it
+	- call scripts\activate
+	//activates env, should see it beside the folders names on left
+4. Django
+	- while in virtual env, pip install django
+	- now go to vscode or your text eiditor
+	- activate virtual env in terminal (same way as earlier)
+	- cd out of virtual env folder
+	- cd in Social Grid
+	- Social Grid is already a project so no need to create one unless you want
+		to play arount
+5. Commands
+	- vscode terminal or command prompt and in Social Grid folder
+	- run python manage.py -> this lists the commands you can call following 
+		python manag.py ....
+	- run python manage.py runserver
+	- this will start a local server at port 8000, copy the URL in the terminal
+		and go to browser to view
+
+If you made it this far, goodjob, lmk if you have questions.
+	
