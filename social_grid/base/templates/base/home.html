@@ -1,4 +1,11 @@
 {% extends 'base/base.html'%}
-<div class="container">
-    <h1> Welcome to the Home Page! </h1>
-</div>
+{% load static %}
+{% block content%}
+<center>
+    <div class="container">
+        <h1> Welcome to </h1>
+        <img src="{% static 'base/images/png/logo-no-background.png' %}" height=25% width=25%>
+    </div>
+</center>
+
+{% endblock content %}

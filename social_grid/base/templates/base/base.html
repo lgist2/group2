@@ -12,7 +12,7 @@
     
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="javascript:void(0)">Logo</a>
+          <a class="navbar-brand" href="{% url 'home-page' %}"><img src="{% static 'base/images/png/logo-only-nobg.png' %}" width="50" height="44"></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -32,12 +32,12 @@
                   <a class="nav-link" href="{% url 'profile' %}">Account</a>
                 </li>
                 <li class="nav-item">
-                  <a class="btn btn-outline-danger" href="{% url 'logout' %}" role="button">Logout</a>
+                  <a class="btn btn-outline-info" href="{% url 'logout' %}" role="button">Logout</a>
                 </li>
                 </ul>
                 <form class="d-flex">
                   <input class="form-control me-2" type="text" placeholder="Search For Users">
-                  <button class="btn btn-primary" type="button">Search</button>
+                  <button class="btn btn-outline-info" type="button">Search</button>
                 </form>
               {% else %}
                 <ul class="navbar-nav me-auto">
