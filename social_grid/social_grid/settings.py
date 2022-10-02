@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 from django.conf.urls.static import static
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,6 +42,8 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'base.apps.BaseConfig',
     'crispy_forms',
+    'post.apps.PostConfig',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -119,7 +122,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = 'base/static/'
+MEDIA_URL = 'base/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'base/media')
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'base/static'),
+)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
