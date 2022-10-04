@@ -2,28 +2,30 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="container">
+<div class="container-md">
     <h5> Signed in as: {{ user.username }}</h5>
     {% if not_exists %}
         <h4>You have no current Posts! </h4>
     {% else %}
+    <a href="{% url 'update-profile' %}">Update Profile</a>
     
         {% for each in user_posts %}
             {% if user_posts %}
             <br>
-            <div class="container">
-                <div class="card">
-                    <div class="card-title">
-                        <h6 class="card-subtitle mb-2 text-muted">{{ each.date_created|date:"F j, Y" }}</h6>
-                        <h2>{{ each }}</h2>
-                        <h5>{{ each.hashtags }}</h5>
-                        <h7>{{ each.body }}</h7><br><br>
-                        {% if each.image %}
-                            <img src="{{ each.image.url }}" width=500>
-                        {% endif%}
-                    </div>    
-                </div>       
-            </div>
+                    <div class="card border-info md-3"style="max-width: 50rem;">
+                        <div class="card-header"style="background-color: rgba(13, 202, 240, 0.1)">
+                            <h6 class="card-subtitle mb-2 text-muted"> <br>{{ each.date_created|date:"F j, Y" }}</h6>
+                            <h6>{{ each.account }}</h6>
+                            <h2>{{ each }}</h2>
+                        </div>                       
+                        <div class="card-body">
+                            <h7>{{ each.body }}</h7> <br><br>
+                            <h5>{{ each.hashtags }}</h5>
+                            {% if each.image %}
+                                <img src="{{ each.image.url }}" class="card-img-bottom">
+                            {% endif%}
+                        </div>
+                    </div>
             {% endif %}
     
         {% endfor %}
