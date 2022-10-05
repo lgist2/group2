@@ -15,7 +15,7 @@ def registration(request):
             user = form.save()
             username = form.cleaned_data.get('username')
              #need to add message to html instead
-            Account.objects.create( user=user,)
+            Account.objects.create( user=user,) #creates a profile account for the new user
             return redirect('login')
     else:
         form = UserRegisterForm()
