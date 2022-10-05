@@ -32,6 +32,11 @@ class AccountUpdateForm(forms.ModelForm):
     class Meta:
         model = Account
         fields = [
-            'profile_img',
+            'bio',
+            'image',
             'birthday',
         ]
+    def __init__(self, *args,  **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['image'].label = 'New Profile picture: '
+        self.fields['bio'].label = 'Bio: '
