@@ -1,6 +1,0 @@
-Download Crispy forms for django. 
-They are being used in this project.
-Be sure to do this in your virtual env
-
-
-pip install django-crispy-forms
