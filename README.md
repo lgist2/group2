@@ -28,7 +28,7 @@ Description: A social media platform that allows users to connect with friends b
 
 Features:
 - [ ] Create account
-- [ ] Edit account info (change username, password, etc)
+- [ ] Edit account info (change username, profile pic, birthday, etc)
 - [ ] Change account privacy
 - [ ] Edit profile (profile picture, public name, bio)
 
