@@ -10,7 +10,7 @@
 </head>
 <body>
     
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #1D1F20">
         <div class="container-fluid">
           <a class="navbar-brand" href="{% url 'home-page' %}"><img src="{% static 'base/images/png/logo-only-nobg.png' %}" width="50" height="44"></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
@@ -42,10 +42,10 @@
               {% else %}
                 <ul class="navbar-nav me-auto">
                   <li class="nav-item">
-                    <a class="btn btn-outline-success" href="{% url 'login' %}" role="button">Login</a>
+                    <a class="btn btn-outline-info" href="{% url 'login' %}" role="button">Login</a>
                   </li>
                   <li class="nav-item">
-                    <a class="btn btn-outline-success" href="{% url 'register' %}" role="button">Register</a>
+                    <a class="btn btn-outline-info" href="{% url 'register' %}" role="button">Register</a>
                   </li>
                 </ul>
               {% endif %}

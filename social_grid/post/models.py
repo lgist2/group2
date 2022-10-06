@@ -9,7 +9,7 @@ from django.utils import timezone
 
 class AddPost(models.Model):
     account = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=15)
+    title = models.CharField(max_length=50)
     hashtags = models.CharField(max_length=50, blank=True,null=True)
     body = RichTextField(blank=True, null=True)
     image = models.ImageField(null=True, blank=True, upload_to='post_images/')
