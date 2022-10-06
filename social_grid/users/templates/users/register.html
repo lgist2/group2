@@ -17,16 +17,14 @@
                   <div class="col-md-6 mb-4">
   
                     <div class="form-outline">
-                      <input type="text" name="first_name" class="form-control form-control-lg" />
-                      <label class="form-label" for="id_first_name">First Name</label>
+                      <input type="text" name="first_name" class="form-control form-control-lg" placeholder="First Name" />
                     </div>
   
                   </div>
                   <div class="col-md-6 mb-4">
                     
                     <div class="form-outline">
-                      <input type="text" name="last_name" class="form-control form-control-lg" />
-                      <label class="form-label" for="lastName">Last Name</label>
+                      <input type="text" name="last_name" class="form-control form-control-lg" placeholder="Last Name" />
                     </div>
   
                   </div>
@@ -36,16 +34,14 @@
                   <div class="col-md-6 mb-4 d-flex align-items-center">
   
                     <div class="form-outline datepicker w-100">
-                      <input type="text" class="form-control form-control-lg" name="username" />
-                      <label for="birthdayDate" class="form-label">Username</label>
+                      <input type="text" class="form-control form-control-lg" name="username" placeholder="Username" />
                     </div>
   
                   </div>
                   <div class="col-md-6 mb-4 pb-2">
   
                     <div class="form-outline">
-                      <input type="email"  name="email" class="form-control form-control-lg" />
-                      <label class="form-label" >Email</label>
+                      <input type="email"  name="email" class="form-control form-control-lg" placeholder="Email"/>
                     </div>
   
                   </div>
@@ -56,22 +52,21 @@
                   <div class="col-md-6 mb-4 pb-2">
   
                     <div class="form-outline">
-                        <input type="password"  name="password1" class="form-control form-control-lg" />
-                        <label class="form-label" >Password</label>
+                        <input type="password"  name="password1" class="form-control form-control-lg" placeholder="Password" />
                       </div>
   
                   </div>
                   <div class="col-md-6 mb-4 pb-2">
   
                     <div class="form-outline">
-                        <input type="password"  name="password2" class="form-control form-control-lg" />
-                        <label class="form-label" >Password Confirmation</label>
+                        <input type="password"  name="password2" class="form-control form-control-lg" placeholder="Password Confirmation"/>
                       </div>
+                      
   
                   </div>
                 </div>
   
-                
+                {{form.errors}}
   
                 <div class="mt-4 pt-2">
                   <input class="btn btn-info btn-lg" type="submit" value="Submit" />

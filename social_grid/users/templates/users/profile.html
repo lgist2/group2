@@ -47,12 +47,12 @@
         </div>
         </div>
     </div>
-
-    {% if not_exists %}
-        <h4>You have no current Posts! </h4>
-    {% else %}
-            <br>
-                <div class="container">
+    <div class="container">
+        {% if not_exists %}
+            <h4>You have no current Posts! </h4>
+        {% else %}
+                <br>
+                
                     <div class="row">
                         {% for each in user_posts %}
                             {% if user_posts %}
