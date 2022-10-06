@@ -49,5 +49,4 @@ Goals:
 - Ensure the UI is easy to understand
 - Create a website design that looks visually pleasing
 
-//put a ss of our project here
-![Example of project running](![image](https://user-images.githubusercontent.com/71097489/194437274-e76f37cd-7f39-4c4e-986f-da1b0579f16b.png))
+![Screenshot 2022-10-06 184002](https://user-images.githubusercontent.com/71097489/194437608-5dfc96e4-0352-4dcc-9d1b-4f5bc4eee30b.png)
