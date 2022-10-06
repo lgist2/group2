@@ -3,28 +3,57 @@
 
 {% block content %}
 <div class="container-md">
-    <div class="card mb-3" style="max-width: 540px;">
-        <div class="row g-0">
-        <div class="col-md-4">
-            <img src="{{ user.account.image.url }}" class="img-fluid rounded-start" alt="...">
-        </div>
-        <div class="col-md-8">
-            <div class="card-body">
-            <h5 class="card-title">{{ user.username }}</h5>
-            <p class="card-text">{{ user.account.bio }}</p>
-            <p class="card-text">Email: <small class="text-muted">{{ user.email }}</small></p>
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-md-9 col-lg-7 col-xl-5">
+            <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-4">
+                <div class="d-flex text-black">
+                <div class="flex-shrink-0">
+                    <img src="{{ user.account.image.url }}"
+                    alt="Generic placeholder image" class="img-fluid"
+                    style="width: 180px; border-radius: 10px;">
+                </div>
+                <div class="flex-grow-1 ms-3">
+                    <h5 class="mb-1">{{ user.first_name }} {{ user.last_name }}</h5>
+                    <p class="mb-2 pb-1" style="color: #2b2a2a;">Email: {{ user.email|default_if_none:"" }}</p>
+                    <p class="mb-2 pb-1" style="color: #2b2a2a;">Bio: {{ user.account.bio|default_if_none:"" }}</p>
+                    <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
+                    style="background-color: #efefef;">
+                    <div>
+                        <p class="small text-muted mb-1">Posts</p>
+                        <p class="mb-0">{{ post_cnt }}</p>
+                    </div>
+                    <div class="px-3">
+                        <p class="small text-muted mb-1">Followers</p>
+                        <p class="mb-0">100k</p>
+                    </div>
+                    <div>
+                        <p class="small text-muted mb-1">Following</p>
+                        <p class="mb-0">10k</p>
+                    </div>
+                    </div>
+                    <div class="d-flex pt-1">
+                    <button type="button" class="btn btn-outline-info me-1 flex-grow-1">Message</button>
+                    <button type="button" class="btn btn-info flex-grow-1">Follow</button>
+                    </div>
+                </div>
+                </div>
+            </div>
             </div>
         </div>
         </div>
     </div>
     <div class="container px-4">
-        <div class="row gx-5">
+        <div class="row gx-6">
           <div class="col">
            <div class="p-3"></div>
           </div>
-          <div class="col">
+          <div class="col-2">
             <div class="p-3 border bg-light">
-                <a class="btn btn-outline-info" href="{% url 'update-profile' %}">Edit Profile</a>
+                <a class="btn btn-info" href="{% url 'update-profile' %}">Edit Profile</a><br><br>
+                <a class="btn btn-info" href="#">Following</a><br><br>
+                <a class="btn btn-info" href="#">Followers</a>
             </div>
           </div>
         </div>
@@ -32,28 +61,33 @@
     {% if not_exists %}
         <h4>You have no current Posts! </h4>
     {% else %}
-    
-    
-        {% for each in user_posts %}
-            {% if user_posts %}
             <br>
-                    <div class="card border-info md-3"style="max-width: 50rem;">
-                        <div class="card-header"style="background-color: rgba(13, 202, 240, 0.1)">
-                            <h6 class="card-subtitle mb-2 text-muted"> <br>{{ each.date_created|date:"F j, Y" }}</h6>
-                            <h6>{{ each.account }}</h6>
-                            <h2>{{ each }}</h2>
-                        </div>                       
-                        <div class="card-body">
-                            <h7>{{ each.body }}</h7> <br><br>
-                            <h5>{{ each.hashtags }}</h5>
-                            {% if each.image %}
-                                <img src="{{ each.image.url }}" class="card-img-bottom">
-                            {% endif%}
-                        </div>
+                <div class="container">
+                    <div class="row">
+                        {% for each in user_posts %}
+                            {% if user_posts %}
+                                <div class="col-4">
+                                    <div class="card border-info md-4"style="max-width: 30rem; min-width: 25rem;">
+                                        <div class="card-header"style="background-color: rgba(13, 202, 240, 0.1)">
+                                            <h6 class="card-subtitle mb-2 text-muted"> <br>{{ each.date_created|date:"F j, Y" }}</h6>
+                                            <h6>{{ each.account }}</h6>
+                                            <h2>{{ each }}</h2>
+                                            <a href="{% url 'update-post' each.id %}" class="btn btn-sm btn-info">Edit Post</a>
+                                            <a href="{% url 'delete-post' each.id %}" class="btn btn-sm btn-danger">Delete Post</a>
+                                        </div>                      
+                                        <div class="card-body">
+                                            <h7>{{ each.body|default_if_none:"" }}</h7> <br><br>
+                                            <h5>{{ each.hashtags|default_if_none:"" }}</h5>
+                                            {% if each.image|default_if_none:"" %}
+                                                <img src="{{ each.image.url }}" class="card-img-bottom">
+                                            {% endif%}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
                     </div>
-            {% endif %}
-    
-        {% endfor %}
+                </div>
     {% endif %}
     {% if cu_post %}
         <h4>You have no current Posts! </h4>

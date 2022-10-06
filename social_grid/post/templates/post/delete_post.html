@@ -1,0 +1,11 @@
+{% extends 'base/base.html'%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<p>Are you sure you want to delete "{{item}}"</p>
+<form action="{% url 'delete-post' item.id %}" method="POST">
+    {% csrf_token %}
+    <a href="{% url 'profile' %}"> Cancel</a>
+    <input type="submit" name="cancel">
+</form>
+{% endblock content %}

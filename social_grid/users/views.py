@@ -23,20 +23,22 @@ def registration(request):
 
 @login_required()
 def profile(request):
+    
     not_exists = False
     active_account = AddPost()
     active_account.account = request.user
     current_posts = AddPost.objects.all()
     user_posts = AddPost.objects.filter(account=active_account.account)
+    post_cnt = AddPost.objects.filter(account=active_account.account).count
     if current_posts.exists():
         for posts in current_posts:
             if user_posts == posts.account:
-                return render(request, 'users/profile.html', {'user_posts' : user_posts, 'not_exists': not_exists})
+                return render(request, 'users/profile.html', {'user_posts' : user_posts, 'not_exists': not_exists, 'post_cnt':post_cnt})
             else:
-                return render(request, 'users/profile.html', {'user_posts' : user_posts, 'not_exists': not_exists})
+                return render(request, 'users/profile.html', {'user_posts' : user_posts, 'not_exists': not_exists, 'post_cnt':post_cnt})
     else:
         not_exists = True
-        return render(request, 'users/profile.html',{'user_posts' : user_posts, 'not_exists': not_exists})
+        return render(request, 'users/profile.html',{'user_posts' : user_posts, 'not_exists': not_exists, 'post_cnt':post_cnt})
 
 @login_required
 def update_profile(request):

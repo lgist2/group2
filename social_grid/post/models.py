@@ -8,7 +8,7 @@ from django.utils import timezone
 # Create your models here.
 
 class AddPost(models.Model):
-    account = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
+    account = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=15)
     hashtags = models.CharField(max_length=50, blank=True,null=True)
     body = RichTextField(blank=True, null=True)
@@ -17,3 +17,4 @@ class AddPost(models.Model):
 
     def __str__(self):
         return self.title
+    
