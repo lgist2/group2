@@ -14,6 +14,8 @@ def registration(request):
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
+            messages.success(request, 'Account created for ' + username)
+            
              #need to add message to html instead
             Account.objects.create( user=user,) #creates a profile account for the new user
             return redirect('login')
