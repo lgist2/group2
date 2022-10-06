@@ -50,4 +50,4 @@ Goals:
 - Create a website design that looks visually pleasing
 
 //put a ss of our project here
-![Example of project running](https://user-images.githubusercontent.com/103222834/187319465-fc22f81f-8da2-46af-907a-12708ba15f33.png)
+![Example of project running](![image](https://user-images.githubusercontent.com/71097489/194437274-e76f37cd-7f39-4c4e-986f-da1b0579f16b.png))
