@@ -11,12 +11,14 @@
         {% if new_post %}
             <h4> Post Shared! </h4>
         {% else %}
-            
-                <div class="form-group col-md-3 mb-0">
-                {{ form|crispy }}
+                <div class="row justify-content-start">
+                    <div class="col-4">
+                        <div class="form-group col-md-3 mb-0">
+                            {{ form|crispy }}
+                        </div>
+                    </div>
+                    
                 </div>
-            
-            
         {% endif %}
     </fieldset>
         <div class="form-control">

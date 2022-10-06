@@ -18,3 +18,8 @@ class AddPostForm(ModelForm):
         self.fields['hashtags'].label = 'Give it some hashtags:'
         self.fields['body'].label = 'Post your thoughts:'
         self.fields['image'].label = 'A picture is worth a thousand words:'
+        self.fields['title'].widget.attrs['class'] = 'form-control'
+        self.fields['hashtags'].widget.attrs['class'] = 'form-control'
+        self.fields['body'].widget.attrs['class'] = 'form-control'
+        self.fields['image'].widget.attrs['class'] = 'form-control'
+
