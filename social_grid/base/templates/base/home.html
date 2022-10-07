@@ -2,31 +2,45 @@
 {% load static %}
 
 {% block content%}
-
-    {% for post in posts %}
+    {% if posts %}
+        {% for post in posts %}
+        <section class="vh-100 " style="background: radial-gradient(circle, #242728, #ffffff)">
+            <div class="container">
+                <div class="row justify-content-center align-items-center h-100">
+                    <div class="col-7"><br><br>
+                        <div class="card border-info md-4"style="width: 50rem;">
+                            <div class="card-header"style="background-color: rgba(13, 202, 240, 0.1)">
+                                <h6 class="card-subtitle mb-2 text-muted"> <br>{{ post.date_created|date:"F j, Y" }}</h6>
+                                <h6>{{ post.account }}</h6>
+                                <h2>{{ post }}</h2>
+                            </div>                       
+                            <div class="card-body">
+                                <h7>{{ post.body|default_if_none:"" }}</h7> <br><br>
+                                <h5>{{ post.hashtags|default_if_none:"" }}</h5>
+                                {% if post.image|default_if_none:"" %}
+                                    <img src="{{ post.image.url }}" class="card-img-bottom">
+                                {% endif%}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% endfor %}
+    {% else %}
     <section class="vh-100 " style="background: radial-gradient(circle, #242728, #ffffff)">
         <div class="container">
             <div class="row justify-content-center align-items-center h-100">
-                <div class="col-7"><br><br>
-                    <div class="card border-info md-4"style="width: 50rem;">
-                        <div class="card-header"style="background-color: rgba(13, 202, 240, 0.1)">
-                            <h6 class="card-subtitle mb-2 text-muted"> <br>{{ post.date_created|date:"F j, Y" }}</h6>
-                            <h6>{{ post.account }}</h6>
-                            <h2>{{ post }}</h2>
-                        </div>                       
-                        <div class="card-body">
-                            <h7>{{ post.body|default_if_none:"" }}</h7> <br><br>
-                            <h5>{{ post.hashtags|default_if_none:"" }}</h5>
-                            {% if post.image|default_if_none:"" %}
-                                <img src="{{ post.image.url }}" class="card-img-bottom">
-                            {% endif%}
-                        </div>
+                <div class="card border-info md-4"style="width: 50rem;">
+                    <div class="card-header"style="background-color: white">
+                        <center><h2>There are no posts!</h2></center>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-{% endfor %}
+    {%endif%}
+
 
 
 {% endblock content %}
