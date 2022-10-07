@@ -14,10 +14,6 @@ class AddPostForm(ModelForm):
         
     def __init__(self, *args,  **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['title'].label = 'Name your post:'
-        self.fields['hashtags'].label = 'Give it some hashtags:'
-        self.fields['body'].label = 'Post your thoughts:'
-        self.fields['image'].label = 'A picture is worth a thousand words:'
         self.fields['title'].widget.attrs['class'] = 'form-control'
         self.fields['hashtags'].widget.attrs['class'] = 'form-control'
         self.fields['body'].widget.attrs['class'] = 'form-control'
