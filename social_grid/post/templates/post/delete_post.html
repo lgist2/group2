@@ -2,10 +2,28 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<p>Are you sure you want to delete "{{item}}"</p>
-<form action="{% url 'delete-post' item.id %}" method="POST">
-    {% csrf_token %}
-    <a href="{% url 'profile' %}"> Cancel</a>
-    <input type="submit" name="cancel">
-</form>
+<section class="vh-100" style="background: linear-gradient(to bottom right, #30D2F2, #242728)">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-xl-10">
+          <div class="card" style="border-radius: 1rem;">
+            <div class="row g-0">
+                <div class="card-body p-4 p-md-5">
+                    <div class="row">
+                        <div class="col-md-10 mb-8 pb-10">
+                            <h5>Are you sure you want to delete "{{item}}"?</h5>
+                            <form action="{% url 'delete-post' item.id %}" method="POST">
+                                {% csrf_token %}
+                                <a class="btn btn-dark" href="{% url 'profile' %}"> Cancel</a>
+                                <button class="btn btn-danger" type="submit" name="delete">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 {% endblock content %}

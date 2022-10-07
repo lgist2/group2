@@ -43,6 +43,10 @@ class UserUpdateForm(forms.ModelForm):
         self.fields['last_name'].widget.attrs['class'] = 'form-control'
         self.fields['username'].widget.attrs['class'] = 'form-control'
         self.fields['email'].widget.attrs['class'] = 'form-control'
+        self.fields['first_name'].widget.attrs['placeholder'] = 'John'
+        self.fields['last_name'].widget.attrs['placeholder'] = 'Doe'
+        self.fields['username'].widget.attrs['placeholder'] = 'winner20'
+        self.fields['email'].widget.attrs['placeholder'] = 'cooldude@gmail.com'
 
 
 
@@ -61,4 +65,7 @@ class AccountUpdateForm(forms.ModelForm):
         self.fields['bio'].widget.attrs['class'] = 'form-control'
         self.fields['birthday'].widget.attrs['class'] = 'form-control'
         self.fields['image'].widget.attrs['class'] = 'form-control'
+        self.fields['bio'].widget.attrs['placeholder'] = 'Bio'
+        self.fields['birthday'].widget.attrs['placeholder'] = '2022-01-28'
+
         
