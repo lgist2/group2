@@ -1,0 +1,10 @@
+There are outside elements we are using that need to be installed before running the program.
+They are being used in this project.
+Be sure to do this in your virtual env
+
+
+pip install django-crispy-forms (used to help with form layout)
+pip install django-ckeditor ( used for a text block entry for adding posts)
+pip install Pillow ( used for ability to have profile pictures)
+
+
