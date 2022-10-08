@@ -28,7 +28,7 @@ Description: A social media platform that allows users to connect with friends b
 
 Features:
 - [ ] Create account
-- [ ] Edit account info (change username, password, etc)
+- [ ] Edit account info (change username, profile pic, birthday, etc)
 - [ ] Change account privacy
 - [ ] Edit profile (profile picture, public name, bio)
 
@@ -49,5 +49,5 @@ Goals:
 - Ensure the UI is easy to understand
 - Create a website design that looks visually pleasing
 
-//put a ss of our project here
-![Example of project running](https://user-images.githubusercontent.com/103222834/187319465-fc22f81f-8da2-46af-907a-12708ba15f33.png)
+![Screenshot 2022-10-06 184002](https://user-images.githubusercontent.com/71097489/194437608-5dfc96e4-0352-4dcc-9d1b-4f5bc4eee30b.png)
+
