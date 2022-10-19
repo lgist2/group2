@@ -1,0 +1,41 @@
+{% extends 'base/base.html'%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<section class="vh-50 ">
+    <div class="container h-20">
+        <div class="row justify-content-center align-items-center h-100">
+        <div class="col col-md-9 col-md-7 col-xl-5">
+            <div class="card m-1" style="border-radius: 15px;">
+            <div class="card-body p-4">
+                <div class="d-flex text-black">
+                <div class="flex-grow-1 ms-4">
+                   {% if search %}
+                        <h3>You searched for {{ search }}</h3>
+                        <br>
+                        {% for user in users %}
+                            <div class="flex-shrink-0">
+                                <img src="{{ user.account.image.url }}"
+                                alt="Generic placeholder image" class="img-fluid"
+                                style="width: 180px; border-radius: 10px;">
+                            </div>
+                            <div class="flex-grow-1 ms-4">
+                                <h5 class="mb-1">{{ user.first_name }} {{ user.last_name }}</h5> <h6><a href="{% url 'user-profile' user.id %}">{{ user.username }}</a></h6>
+                            </div> 
+                        {% endfor %}
+
+                    {% else %}
+                    <h3>You forgot to search!</h3>
+                   {% endif %}
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    
+
+</div>
+</section>    
+{% endblock content%}
