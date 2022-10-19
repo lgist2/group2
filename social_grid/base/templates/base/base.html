@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'base/css/bootstrap.css' %}">
     <title>Social Grid</title>
 </head>
-<body>
+<body style="background: radial-gradient(circle, #242728, #ffffff)">
     
     <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #1D1F20">
         <div class="container-fluid">
@@ -35,9 +35,10 @@
                   <a class="btn btn-outline-info" href="{% url 'logout' %}" role="button">Logout</a>
                 </li>
                 </ul>
-                <form class="d-flex">
-                  <input class="form-control me-2" type="text" placeholder="Search For Users">
-                  <button class="btn btn-outline-info" type="button">Search</button>
+                <form class="d-flex" method="POST" action="{% url 'search-user' %}">
+                  {% csrf_token %}
+                  <input class="form-control me-2" type="text" placeholder="Search For Users" name="search">
+                  <button class="btn btn-outline-info" type="submit">Search</button>
                 </form>
               {% else %}
                 <ul class="navbar-nav me-auto">

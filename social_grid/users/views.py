@@ -1,6 +1,7 @@
 from asyncio.windows_events import NULL
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth.models import User
 
 from .models import Account
 from .forms import UserRegisterForm, UserUpdateForm, AccountUpdateForm
@@ -56,6 +57,23 @@ def update_profile(request):
         a_form = AccountUpdateForm(instance=request.user.account)
     
     return render(request,'users/update_profile.html',{'u_form' : u_form, 'a_form' : a_form})
+
+
+@login_required
+def search_user(request):
+    if request.method == 'POST':
+        search = request.POST['search']
+        users = User.objects.filter(username__contains=search)
+        return render(request, 'users/search_user.html', {'search' : search, 'users' : users})
+    else:
+        return render(request, 'users/search_user.html', {})
+
+@login_required
+def u_profile(request, u_id):
+    user = User.objects.get(pk=u_id)
+    return render(request, 'users/u_profile.html', {'user' : user })
+
+
 
 
 

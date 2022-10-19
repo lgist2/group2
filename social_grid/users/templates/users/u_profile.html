@@ -2,11 +2,11 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<section class="vh-100">
-    <div class="container-fluid">
+<section class="vh-50 ">
+    <div class="container h-20">
         <div class="row justify-content-center align-items-center h-100">
         <div class="col col-md-9 col-md-7 col-xl-5">
-            <div class="card my-3" style="border-radius: 15px;">
+            <div class="card" style="border-radius: 15px;">
             <div class="card-body p-4">
                 <div class="d-flex text-black">
                 <div class="flex-shrink-0">
@@ -55,7 +55,7 @@
                         {% for each in user_posts %}
                             {% if user_posts %}
                                 <div class="col-4">
-                                    <div class="card border-info md-4 my-3"style="max-width: 30rem; min-width: 25rem;">
+                                    <div class="card border-info md-4"style="max-width: 30rem; min-width: 25rem;">
                                         <div class="card-header"style="background-color: rgba(13, 202, 240, 0.1)">
                                             <div class="row justify-content-end">
                                                     <div class="col-3"><a href="{% url 'update-post' each.id %}" class="btn btn-sm btn-info">Edit Post</a></div>
@@ -83,6 +83,8 @@
     {% if cu_post %}
         <h4>You have no current Posts! </h4>
     {% endif %}
+    
 
+</div>
 </section>    
 {% endblock content%}

@@ -4,7 +4,7 @@
 {% block content%}
     {% if posts %}
         {% for post in posts %}
-        <section class="vh-50 " style="background: radial-gradient(circle, #242728, #ffffff)">
+         <section class="container-fluid ">
             <div class="container">
                 <div class="row justify-content-center align-items-center h-100">
                     <div class="col-7"><br><br>
@@ -28,7 +28,7 @@
         </section>
         {% endfor %}
     {% else %}
-    <section class="vh-100 " style="background: radial-gradient(circle, #242728, #ffffff)">
+    <section class="vh-100 ">
         <div class="container">
             <div class="row justify-content-center align-items-center h-100">
                 <div class="card border-info md-4"style="width: 50rem;">
