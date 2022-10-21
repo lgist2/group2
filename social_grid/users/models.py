@@ -24,3 +24,12 @@ class Account(models.Model):
             img.thumbnail(output_size)
             img.save(self.image.path)
 
+
+class Friend(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE,related_name="user")
+    friends = models.ManyToManyField(User, blank=True, related_name="friends")
+
+
+    def __str__(self):
+        return f'{self.user.username} Friends'
+

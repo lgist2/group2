@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 
-from .models import Account
+from .models import Account, Friend
 from .forms import UserRegisterForm, UserUpdateForm, AccountUpdateForm
 from django.contrib.auth.decorators import login_required
 from post.models import AddPost
@@ -18,7 +18,8 @@ def registration(request):
             messages.success(request, 'Account created for ' + username)
             
              #need to add message to html instead
-            Account.objects.create( user=user,) #creates a profile account for the new user
+            Friend.objects.create(user=user,)
+            Account.objects.create(user=user,) #creates a profile account for the new user
             return redirect('login')
     else:
         form = UserRegisterForm()
@@ -72,6 +73,11 @@ def search_user(request):
 def u_profile(request, u_id):
     user = User.objects.get(pk=u_id)
     return render(request, 'users/u_profile.html', {'user' : user })
+
+@login_required
+def request_friend(request, user_id):
+    pass
+
 
 
 
