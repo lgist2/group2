@@ -72,7 +72,9 @@ def search_user(request):
 @login_required
 def u_profile(request, u_id):
     user = User.objects.get(pk=u_id)
-    return render(request, 'users/u_profile.html', {'user' : user })
+    posts = AddPost.objects.filter(account=u_id)
+    post_cnt = AddPost.objects.filter(account=u_id).count
+    return render(request, 'users/u_profile.html', {'user' : user, 'posts' : posts, 'post_cnt' : post_cnt })
 
 @login_required
 def request_friend(request, user_id):
