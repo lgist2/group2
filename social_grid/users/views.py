@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 
-from .models import Account, Friend
+from .models import Account, Relationship
 from .forms import UserRegisterForm, UserUpdateForm, AccountUpdateForm
 from django.contrib.auth.decorators import login_required
 from post.models import AddPost
@@ -18,7 +18,7 @@ def registration(request):
             messages.success(request, 'Account created for ' + username)
             
              #need to add message to html instead
-            Friend.objects.create(user=user,)
+            Relationship.objects.create(user=user,)
             Account.objects.create(user=user,) #creates a profile account for the new user
             return redirect('login')
     else:
@@ -76,9 +76,7 @@ def u_profile(request, u_id):
     post_cnt = AddPost.objects.filter(account=u_id).count
     return render(request, 'users/u_profile.html', {'user' : user, 'posts' : posts, 'post_cnt' : post_cnt })
 
-@login_required
-def request_friend(request, user_id):
-    pass
+
 
 
 
