@@ -11,6 +11,8 @@ class Account(models.Model):
     birthday = models.DateField(default=now)
     bio = RichTextField(blank=True, null=True)
     image = models.ImageField(default='profile_images/logo-only-nobg.png', upload_to='profile_images/')
+    followers = models.ManyToManyField(User, blank=True, related_name='followers')
+    followings = models.ManyToManyField(User, blank=True, related_name='followings')
 
     def __str__(self):
         return f'{self.user.username} Profile'
@@ -25,10 +27,4 @@ class Account(models.Model):
             img.save(self.image.path)
 
 
-class Relationship(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    friend = models.ManyToManyField(User, blank=True, related_name="fr")
-    
-    def __str__(self):
-        return f'{self.user.username} Friends'
     

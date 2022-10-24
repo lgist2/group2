@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 
-from .models import Account, Relationship
+from .models import Account
 from .forms import UserRegisterForm, UserUpdateForm, AccountUpdateForm
 from django.contrib.auth.decorators import login_required
 from post.models import AddPost
@@ -18,7 +18,7 @@ def registration(request):
             messages.success(request, 'Account created for ' + username)
             
              #need to add message to html instead
-            Relationship.objects.create(user=user,)
+            #Relationship.objects.create(user=user,)
             Account.objects.create(user=user,) #creates a profile account for the new user
             return redirect('login')
     else:
@@ -34,15 +34,32 @@ def profile(request):
     current_posts = AddPost.objects.all()
     user_posts = AddPost.objects.filter(account=active_account.account)
     post_cnt = AddPost.objects.filter(account=active_account.account).count
+    followers = Account.objects.filter(followers=active_account.account).count
+    followings = Account.objects.filter(followings=active_account.account).count
     if current_posts.exists():
         for posts in current_posts:
             if user_posts == posts.account:
-                return render(request, 'users/profile.html', {'user_posts' : user_posts, 'not_exists': not_exists, 'post_cnt':post_cnt})
+                return render(request, 'users/profile.html', {'user_posts' : user_posts, 
+                'not_exists': not_exists, 
+                'post_cnt':post_cnt, 
+                'followers' : followers,
+                'followings' : followings,
+                })
             else:
-                return render(request, 'users/profile.html', {'user_posts' : user_posts, 'not_exists': not_exists, 'post_cnt':post_cnt})
+                return render(request, 'users/profile.html', {'user_posts' : user_posts, 
+                'not_exists': not_exists, 
+                'post_cnt':post_cnt, 
+                'followers' : followers,
+                'followings' : followings,
+                })
     else:
         not_exists = True
-        return render(request, 'users/profile.html',{'user_posts' : user_posts, 'not_exists': not_exists, 'post_cnt':post_cnt})
+        return render(request, 'users/profile.html',{'user_posts' : user_posts, 
+        'not_exists': not_exists, 
+        'post_cnt':post_cnt, 
+        'followers' : followers,
+        'followings' : followings,
+        })
 
 @login_required
 def update_profile(request):
@@ -74,8 +91,42 @@ def u_profile(request, u_id):
     user = User.objects.get(pk=u_id)
     posts = AddPost.objects.filter(account=u_id)
     post_cnt = AddPost.objects.filter(account=u_id).count
-    return render(request, 'users/u_profile.html', {'user' : user, 'posts' : posts, 'post_cnt' : post_cnt })
+    followers = user.followers.all()
+    followings = user.followings.all()
+    
+    number_of_followers = len(followers)
+    number_of_followings = len(followings)
 
+    return render(request, 'users/u_profile.html', {'user' : user, 
+                                                    'posts' : posts, 
+                                                    'post_cnt' : post_cnt, 
+                                                    'number_of_followers' : number_of_followers,
+                                                    'number_of_followings' : number_of_followings,
+                                                    })
+
+
+@login_required
+def add_follower(request, u_id):
+    if request.method == 'POST':
+        user = Account.objects.get(user=u_id)
+        user.followers.add(request.user)
+        user_following = Account.objects.get(user=request.user)
+        user_following.followings.add(user.user)
+        
+    return redirect('user-profile', u_id)
+    
+    
+
+
+@login_required
+def remove_follower(request, u_id):
+    if request.method == 'POST':
+        user = Account.objects.get(user=u_id)
+        user.followers.remove(request.user)
+        user_following = Account.objects.get(user=request.user)
+        user_following.followings.remove(user.user)
+
+    return redirect('user-profile', u_id)
 
 
 

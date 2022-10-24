@@ -26,16 +26,29 @@
                     </div>
                     <div class="px-3">
                         <p class="small text-muted mb-1">Followers</p>
-                        <p class="mb-0">100k</p>
+                        <p class="mb-0">{{ number_of_followings }}</p>
                     </div>
                     <div>
                         <p class="small text-muted mb-1">Following</p>
-                        <p class="mb-0">10k</p>
+                        <p class="mb-0">{{ number_of_followers }}</p>
                     </div>
                     </div>
                     <div class="d-flex pt-1">
-                    <button type="button" class="btn btn-dark me-1 flex-grow-1">Message</button>
-                    <button type="button" class="btn btn-dark flex-grow-1">Follow</button>
+                        
+                        
+                        <form action="{% url 'remove-follower' user.pk %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-dark ">Unfollow</button>
+                        </form>
+                    
+                        <form action="{% url 'add-follower' user.pk %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-dark">Follow</button>
+                        </form>
+
+                        
+                    
+                        
                     </div>
                     
                 </div>
