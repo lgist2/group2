@@ -27,12 +27,12 @@ Software: Django
 Description: A social media platform that allows users to connect with friends by composing statuses that can be posted to his/her timeline, add friends, and interact with friends’ posts. 
 
 Features:
-- [ ] Create account
+- [x] Create account
 - [ ] Edit account info (change username, profile pic, birthday, etc)
 - [ ] Change account privacy
-- [ ] Edit profile (profile picture, public name, bio)
+- [x] Edit profile (profile picture, public name, bio)
 
-- [ ] Create posts
+- [x] Create posts
 - [ ] View others' posts
 - [ ] Comment on posts
 - [ ] Delete posts
