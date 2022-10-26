@@ -31,7 +31,7 @@ def updatepost(request, pk):
         if form.is_valid():
             form.save()
             return redirect('profile')
-    return render(request, 'post/update_post.html', {'form': form})
+    return render(request, 'post/update_post.html', {'form': form, 'post' : post,})
 
 def deletepost(request,pk):
     post = AddPost.objects.get(id=pk)

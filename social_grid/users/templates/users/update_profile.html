@@ -81,7 +81,10 @@
                 </div>
                 <div class="row">
                     <div class="form-outline">
-                        {{a_form.image}}
+                        Current Profile Picture: <br>
+                        <img src="{{ user.account.image.url }}" style="width: 180px; border-radius: 10px;">
+                        <br>
+                        Change: <br><input type="file" name="image" accept="image/*" class="form-control clearablefileinput" id="id_image">
                     </div>
                 </div>
                 {{form.errors}}

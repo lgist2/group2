@@ -25,30 +25,12 @@
                         <p class="mb-0">{{ post_cnt }}</p>
                     </div>
                     <div class="px-3">
-                        <p class="small text-muted mb-1">Followers</p>
-                        <p class="mb-0">{{ number_of_followings }}</p>
-                    </div>
-                    <div>
-                        <p class="small text-muted mb-1">Following</p>
-                        <p class="mb-0">{{ number_of_followers }}</p>
+                        <p class="small text-muted mb-1">Friends</p>
+                        <p class="mb-0">{{ friend_cnt }}</p>
                     </div>
                     </div>
                     <div class="d-flex pt-1">
-                        
-                        
-                        <form action="{% url 'remove-follower' user.pk %}" method="POST">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-outline-dark ">Unfollow</button>
-                        </form>
-                    
-                        <form action="{% url 'add-follower' user.pk %}" method="POST">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-outline-dark">Follow</button>
-                        </form>
-
-                        
-                    
-                        
+                        <a class="btn btn-info" href="{% url 'add-friend' user.id %}">Request Friend</a>
                     </div>
                     
                 </div>
@@ -59,29 +41,33 @@
         </div>
     </div>
     <br>
-    <div class="container">
-        <div class="row">
-            {% for post in posts %}
-                    <div class="col-4">
-                        <div class="card border-info md-4"style="max-width: 30rem; min-width: 25rem;">
-                            <div class="card-header"style="background-color: rgba(13, 202, 240, 0.1)">
-                                <h6 class="card-subtitle mb-2 text-muted"> <br>{{ post.date_created|date:"F j, Y" }}</h6>
-                                <h6>{{ post.account }}</h6>
-                                <h2>{{ post }}</h2>
-                                
-                            </div>                      
-                            <div class="card-body">
-                                <h7>{{ post.body|default_if_none:"" }}</h7> <br><br>
-                                <h5>{{ post.hashtags|default_if_none:"" }}</h5>
-                                {% if post.image|default_if_none:"" %}
-                                    <img src="{{ post.image.url }}" class="card-img-bottom">
-                                {% endif%}
+    {% if friend %}
+        <div class="container">
+            <div class="row">
+                {% for post in posts %}
+                        <div class="col-4">
+                            <div class="card border-info md-4"style="max-width: 30rem; min-width: 25rem;">
+                                <div class="card-header"style="background-color: rgba(13, 202, 240, 0.1)">
+                                    <h6 class="card-subtitle mb-2 text-muted"> <br>{{ post.date_created|date:"F j, Y" }}</h6>
+                                    <h6>{{ post.account }}</h6>
+                                    <h2>{{ post }}</h2>
+                                    
+                                </div>                      
+                                <div class="card-body">
+                                    <h7>{{ post.body|default_if_none:"" }}</h7> <br><br>
+                                    <h5>{{ post.hashtags|default_if_none:"" }}</h5>
+                                    {% if post.image|default_if_none:"" %}
+                                        <img src="{{ post.image.url }}" class="card-img-bottom">
+                                    {% endif%}
+                                </div>
                             </div>
                         </div>
-                    </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
-    </div>
-  
+    {% else %}
+    <h1>Become friends to view posts</h1>
+    {% endif %}
+
 </section>    
 {% endblock content%}
