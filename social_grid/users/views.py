@@ -6,11 +6,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 import json
 
-<<<<<<< HEAD
-from .models import Account
-=======
 from .models import Account, FriendRequest
->>>>>>> Levi-Branch
 from .forms import UserRegisterForm, UserUpdateForm, AccountUpdateForm
 from django.contrib.auth.decorators import login_required
 from post.models import AddPost
@@ -41,33 +37,16 @@ def profile(request):
     current_posts = AddPost.objects.all()
     user_posts = AddPost.objects.filter(account=active_account.account)
     post_cnt = AddPost.objects.filter(account=active_account.account).count
-<<<<<<< HEAD
-    followers = Account.objects.filter(followers=active_account.account).count
-    followings = Account.objects.filter(followings=active_account.account).count
-=======
     friend_cnt = Account.objects.filter(friends=active_account.account).count
     friend_requests = FriendRequest.objects.filter(reciever=request.user)
     current_users = User.objects.exclude(username=request.user)
     #followers = Account.objects.filter(followers=active_account.account).count
     #followings = Account.objects.filter(followings=active_account.account).count
->>>>>>> Levi-Branch
     if current_posts.exists():
         for posts in current_posts:
             if user_posts == posts.account:
                 return render(request, 'users/profile.html', {'user_posts' : user_posts, 
                 'not_exists': not_exists, 
-<<<<<<< HEAD
-                'post_cnt':post_cnt, 
-                'followers' : followers,
-                'followings' : followings,
-                })
-            else:
-                return render(request, 'users/profile.html', {'user_posts' : user_posts, 
-                'not_exists': not_exists, 
-                'post_cnt':post_cnt, 
-                'followers' : followers,
-                'followings' : followings,
-=======
                 'post_cnt':post_cnt,
                 'friend_requests' : friend_requests,
                 'current_users' : current_users,
@@ -80,22 +59,15 @@ def profile(request):
                 'friend_requests' : friend_requests,
                 'current_users' : current_users,
                 'friend_cnt' : friend_cnt,
->>>>>>> Levi-Branch
                 })
     else:
         not_exists = True
         return render(request, 'users/profile.html',{'user_posts' : user_posts, 
         'not_exists': not_exists, 
-<<<<<<< HEAD
-        'post_cnt':post_cnt, 
-        'followers' : followers,
-        'followings' : followings,
-=======
         'post_cnt':post_cnt,
         'friend_requests' : friend_requests,
         'current_users' : current_users,
         'friend_cnt' : friend_cnt,
->>>>>>> Levi-Branch
         })
 
 @login_required
@@ -130,19 +102,6 @@ def u_profile(request, u_id):
     user = User.objects.get(pk=u_id)
     posts = AddPost.objects.filter(account=u_id)
     post_cnt = AddPost.objects.filter(account=u_id).count
-<<<<<<< HEAD
-    followers = user.followers.all()
-    followings = user.followings.all()
-    
-    number_of_followers = len(followers)
-    number_of_followings = len(followings)
-
-    return render(request, 'users/u_profile.html', {'user' : user, 
-                                                    'posts' : posts, 
-                                                    'post_cnt' : post_cnt, 
-                                                    'number_of_followers' : number_of_followers,
-                                                    'number_of_followings' : number_of_followings,
-=======
     friend_cnt = Account.objects.filter(friends=u_id).count
     if friend_of_user.exists():
         friend = True
@@ -153,37 +112,10 @@ def u_profile(request, u_id):
                                                     'post_cnt' : post_cnt,
                                                     'friend_cnt' : friend_cnt,
                                                     'friend' : friend, 
->>>>>>> Levi-Branch
                                                     })
 
 
 @login_required
-<<<<<<< HEAD
-def add_follower(request, u_id):
-    if request.method == 'POST':
-        user = Account.objects.get(user=u_id)
-        user.followers.add(request.user)
-        user_following = Account.objects.get(user=request.user)
-        user_following.followings.add(user.user)
-        
-    return redirect('user-profile', u_id)
-    
-    
-
-
-@login_required
-def remove_follower(request, u_id):
-    if request.method == 'POST':
-        user = Account.objects.get(user=u_id)
-        user.followers.remove(request.user)
-        user_following = Account.objects.get(user=request.user)
-        user_following.followings.remove(user.user)
-
-    return redirect('user-profile', u_id)
-
-
-
-=======
 def send_friend_request(request, u_id):
     sender = request.user
     reciever = User.objects.get(pk=u_id)
@@ -231,7 +163,6 @@ def pending_friend_requests(request):
     
 
     
->>>>>>> Levi-Branch
 
 
 
