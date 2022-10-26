@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Account, Relationship
+from .models import Account, FriendRequest
 
 admin.site.register(Account)
-admin.site.register(Relationship)
+#admin.site.register(FriendList)
+admin.site.register(FriendRequest)
