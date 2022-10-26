@@ -96,7 +96,7 @@ def search_user(request):
         return render(request, 'users/search_user.html', {})
 
 @login_required
-def u_profile(request, u_id):
+def u_profile(request, username, u_id):
     friend = False
     friend_of_user = Account.objects.filter(friends=u_id)
     user = User.objects.get(pk=u_id)

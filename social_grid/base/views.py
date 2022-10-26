@@ -16,7 +16,7 @@ def home(request):
     active_user = request.user
     posts = AddPost.objects.filter(account__friends=active_user.account)
     context = {
-        'posts' : posts, 
+        'posts' : posts,
     }
     return render(request, 'base/home.html', context)
 
