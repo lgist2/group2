@@ -1,4 +1,7 @@
 from django.shortcuts import render, redirect
+
+from users.models import Account
+from django.contrib.auth.models import User
 from .models import AddPost
 from .forms import AddPostForm
 from django.http import HttpResponseRedirect
@@ -39,3 +42,11 @@ def deletepost(request,pk):
         post.delete()
         return redirect('profile')
     return render(request, 'post/delete_post.html',{'item':post})
+
+
+def like_post(request, username, p_id):
+    post = AddPost.objects.get(id=p_id)
+    post.likes.add(request.user)
+    active_user = request.user
+    active_user.account.posts_liked.add(post)
+    return redirect('home-page')

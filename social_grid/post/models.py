@@ -13,6 +13,7 @@ class AddPost(models.Model):
     hashtags = models.CharField(max_length=50, blank=True,null=True)
     body = RichTextField(blank=True, null=True)
     image = models.ImageField(null=True, blank=True, upload_to='post_images/')
+    likes = models.ManyToManyField(User, blank=True, related_name='likes')
     date_created = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
