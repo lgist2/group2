@@ -2,7 +2,7 @@ from datetime import datetime
 from email.mime import image
 from django.db import models
 from django.contrib.auth.models import User
-from post.models import AddPost
+from post.models import Post
 from django.utils.timezone import now
 from django.utils import timezone
 from ckeditor.fields import RichTextField
@@ -13,7 +13,7 @@ class Account(models.Model):
     birthday = models.DateField(default=now)
     bio = RichTextField(blank=True, null=True)
     image = models.ImageField(default='profile_images/logo-only-nobg.png', upload_to='profile_images/')
-    posts_liked = models.ManyToManyField(AddPost, blank=True, related_name='posts_liked')
+    posts_liked = models.ManyToManyField(Post, blank=True, related_name='posts_liked')
     friends = models.ManyToManyField(User, blank=True, related_name='friends')
     
 

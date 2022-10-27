@@ -9,7 +9,7 @@ import json
 from .models import Account, FriendRequest
 from .forms import UserRegisterForm, UserUpdateForm, AccountUpdateForm
 from django.contrib.auth.decorators import login_required
-from post.models import AddPost
+from post.models import Post
 
 
 def registration(request):
@@ -32,11 +32,11 @@ def registration(request):
 def profile(request):
     
     not_exists = False
-    active_account = AddPost()
+    active_account = Post()
     active_account.account = request.user
-    current_posts = AddPost.objects.all()
-    user_posts = AddPost.objects.filter(account=active_account.account)
-    post_cnt = AddPost.objects.filter(account=active_account.account).count
+    current_posts = Post.objects.all()
+    user_posts = Post.objects.filter(account=active_account.account)
+    post_cnt = Post.objects.filter(account=active_account.account).count
     friend_cnt = Account.objects.filter(friends=active_account.account).count
     friend_requests = FriendRequest.objects.filter(reciever=request.user)
     current_users = User.objects.exclude(username=request.user)
@@ -100,8 +100,8 @@ def u_profile(request, username, u_id):
     friend = False
     friend_of_user = Account.objects.filter(friends=u_id)
     user = User.objects.get(pk=u_id)
-    posts = AddPost.objects.filter(account=u_id)
-    post_cnt = AddPost.objects.filter(account=u_id).count
+    posts = Post.objects.filter(account=u_id)
+    post_cnt = Post.objects.filter(account=u_id).count
     friend_cnt = Account.objects.filter(friends=u_id).count
     if friend_of_user.exists():
         friend = True

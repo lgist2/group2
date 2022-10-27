@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from post.forms import AddPostForm
+from post.forms import PostForm
 from django.contrib.auth.models import User
 from users.models import Account, FriendRequest
 
 
-from post.models import AddPost
+from post.models import Post
 
 
 # Create your views here.
@@ -14,7 +14,7 @@ def home(request):
     #gets active user
     #filters the posts and displays only the posts of the users friends
     active_user = request.user
-    posts = AddPost.objects.filter(account__friends=active_user.account)
+    posts = Post.objects.filter(account__friends=active_user.account)
     context = {
         'posts' : posts,
     }

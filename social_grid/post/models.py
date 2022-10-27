@@ -7,7 +7,7 @@ from django.utils import timezone
 
 # Create your models here.
 
-class AddPost(models.Model):
+class Post(models.Model):
     account = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     hashtags = models.CharField(max_length=50, blank=True,null=True)
