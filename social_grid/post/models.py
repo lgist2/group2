@@ -16,6 +16,24 @@ class Post(models.Model):
     likes = models.ManyToManyField(User, blank=True, related_name='likes')
     date_created = models.DateTimeField(default=timezone.now)
 
+    class Meta:
+        ordering = ['date_created']
     def __str__(self):
+
         return self.title
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+    account = models.ForeignKey(User, on_delete=models.CASCADE)
+    body = models.TextField()
+    created_on = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        ordering = ['created_on']
+
+    def __str__(self):
+        return f'{ self.account } - { self.post }.'
+
+
+
     

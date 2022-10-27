@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 
 from users.models import Account
 from django.contrib.auth.models import User
-from .models import Post
-from .forms import PostForm
+from .models import Post, Comment
+from .forms import CommentForm, PostForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, CreateView
@@ -50,3 +50,21 @@ def like_post(request, username, p_id):
     active_user = request.user
     active_user.account.posts_liked.add(post)
     return redirect('home-page')
+
+
+def comment_on_post(request, p_id):
+    post = Post.objects.get(id=p_id)
+    form = CommentForm()
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.account = request.user
+            instance.post = post
+            instance.save()
+            return redirect('home-page')
+    context = {
+        'post' : post,
+        'form' : form,
+    }
+    return render(request, 'post/comment_on_post.html', context)
