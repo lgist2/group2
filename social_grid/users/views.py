@@ -91,16 +91,17 @@ def search_user(request):
     if request.method == 'POST':
         search = request.POST['search']
         users = User.objects.filter(username__contains=search)
-        return render(request, 'users/search_user.html', {'search' : search, 'users' : users})
+        current_user = request.user
+        return render(request, 'users/search_user.html', {'search' : search, 'users' : users, 'current_users' : current_user,})
     else:
-        return render(request, 'users/search_user.html', {})
+        return render(request, 'users/search_user.html', {'search' : search, 'users' : users, 'current_users' : current_user,})
 
 @login_required
 def u_profile(request, username, u_id):
     friend = False
     friend_of_user = Account.objects.filter(friends=u_id)
     user = User.objects.get(pk=u_id)
-    posts = Post.objects.filter(account=u_id)
+    posts = Post.objects.filter(account=u_id).order_by("-id")
     post_cnt = Post.objects.filter(account=u_id).count
     friend_cnt = Account.objects.filter(friends=u_id).count
     if friend_of_user.exists():
