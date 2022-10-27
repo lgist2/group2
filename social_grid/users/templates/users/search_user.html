@@ -15,6 +15,7 @@
             </div>
         </div>
     </div>
+    {% if not current_user %}
     {% for user in users %}
             <div class="container-fluid">
                 <div class="row justify-content-center align-items-center h-100">
@@ -28,7 +29,7 @@
                                     style="width: 180px; border-radius: 10px;">
                                 </div>
                                 <div class="flex-grow-1 ms-4">
-                                    <h5 class="mb-1">{{ user.first_name }} {{ user.last_name }}</h5> <h6><a href="{% url 'user-profile' user.id %}" class="btn btn-info">{{ user.username }}</a></h6>
+                                    <h5 class="mb-1">{{ user.first_name }} {{ user.last_name }}</h5> <h6><a href="{% url 'user-profile' user.username user.id %}" class="btn btn-info">{{ user.username }}</a></h6>
                                     <p class="mb-2 pb-1" style="color: #2b2a2a;">Email: {{ user.email|default_if_none:"" }}</p>
                                 </div>
                             </div>
@@ -37,8 +38,8 @@
                 </div>
                 </div>
             </div>
-            
         {% endfor %}
+        {% endif %}
     {% else %}
     <div class="container-fluid">
         <div class="row justify-content-center align-items-center h-100">
