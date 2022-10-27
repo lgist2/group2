@@ -35,7 +35,7 @@ def profile(request):
     active_account = Post()
     active_account.account = request.user
     current_posts = Post.objects.all()
-    user_posts = Post.objects.filter(account=active_account.account)
+    user_posts = Post.objects.filter(account=active_account.account).order_by("-id")
     post_cnt = Post.objects.filter(account=active_account.account).count
     friend_cnt = Account.objects.filter(friends=active_account.account).count
     friend_requests = FriendRequest.objects.filter(reciever=request.user)

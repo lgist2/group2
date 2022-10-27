@@ -7,23 +7,29 @@
          <section class="container-fluid ">
             <div class="container">
                 <div class="row justify-content-center align-items-center h-100">
-                    <div class="col-7"><br><br>
-                        <div class="card border-info md-4"style="width: 50rem;">
+                    <div class="col-6"><br><br>
+                        <div class="card border-info md-4"style="width: 650px;">
                             <div class="card-header"style="background-color: rgba(13, 202, 240, 0.1)">
                                 <h6 class="card-subtitle mb-2 text-muted"> <br>{{ post.date_created|date:"F j, Y" }}</h6>
                                 <h6><a href="{% url 'user-profile' post.account post.account.id %}" class="btn btn-outline-secondary">@{{ post.account }}</a></h6>
                                 <h2>{{ post }}</h2>
-                            </div>                       
+                            </div>        
                             <div class="card-body">
                                 <h7>{{ post.body|default_if_none:"" }}</h7> <br><br>
                                 <h5>{{ post.hashtags|default_if_none:"" }}</h5>
                                 {% if post.image|default_if_none:"" %}
-                                    <img src="{{ post.image.url }}" class="card-img-bottom" >
+                                    <center><img src="{{ post.image.url }}" class="img-fluid card-img-bottom" style="width: 500px; border-radius: 10px;"></center>
                                 {% endif%}
                             </div>
                             <div class="card-footer">
-                                <p class="small text-muted mb-2">{{ post.likes.count }} Likes </p>
-                                <a href="{% url 'like-post' post.account post.id %}" class="btn btn-outline-secondary">Like</a></h6>
+                                <div class="col-4">
+                                    <p class="small text-muted mb-2">{{ post.likes.count }} Likes </p>
+                                    <p class="small text-muted mb-2">{{ post.comments.count }} Comments </p>
+                                </div>
+                                <a href="{% url 'like-post' post.account post.id %}" class="btn btn-secondary md-4">Like</a></h6>
+
+                                <a href="{% url 'comment-post' post.id %}" class="btn btn-secondary">Comment</a>
+                                
                                 
                             </div>
                         </div>
@@ -46,6 +52,22 @@
     </section>
     {%endif%}
 
+    <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+          <p class="col-md-4 mb-0 text-muted">&copy; 2022 Social Grid, Inc</p>
+      
+          
+        <a href=""><img class="text-center" src="{% static 'base/images/png/logo-only-nobg.png' %}" width="100" height="100"></a>
+          
+      
+          <ul class="nav col-md-4 justify-content-end">
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+            <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link px-2 text-muted">Logout</a></li>
+          </ul>
+        </footer>
+      </div>
 
 
 {% endblock content %}

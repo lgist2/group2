@@ -47,10 +47,10 @@
               {% else %}
                 <ul class="navbar-nav me-auto">
                   <li class="nav-item">
-                    <a class="btn btn-outline-info" href="{% url 'login' %}" role="button">Login</a>
+                    <a class="btn btn-outline-info me-2" href="{% url 'login' %}" role="button">Login</a>
                   </li>
                   <li class="nav-item">
-                    <a class="btn btn-outline-info" href="{% url 'register' %}" role="button">Register</a>
+                    <a class="btn btn-outline-info me-2" href="{% url 'register' %}" role="button">Register</a>
                   </li>
                 </ul>
               {% endif %}
@@ -60,6 +60,6 @@
       
       
       {% block content %} {% endblock content %}
-      
+    
 </body>
 </html>

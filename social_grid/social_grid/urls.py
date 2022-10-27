@@ -33,6 +33,7 @@ urlpatterns = [
     path('update-post/<str:pk>/', post_views.updatepost, name='update-post'),
     path('delete-post/<str:pk>/', post_views.deletepost, name='delete-post'),
     path('like-post/?=user=<str:username>/?=post<str:p_id>/', post_views.like_post, name='like-post'),
+    path('comment-on-post/?=post<str:p_id>/', post_views.comment_on_post, name='comment-post'),
     path('search-user/', user_views.search_user, name='search-user'),
     path('user-profile/?=user=<str:username>/?=<str:u_id>', user_views.u_profile, name='user-profile'),
     path('add-friend/<str:u_id>/', user_views.send_friend_request, name='add-friend'),
