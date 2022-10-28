@@ -21,18 +21,18 @@
                     <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
                     style="background-color: #efefef;">
                     <div>
-                        <p class="small text-muted mb-1">Posts</p>
+                        <p class="small text-muted mb-1"><a class="btn btn-sm btn-outline-secondary" href="{% url 'profile' %}">Posts</a></p>
                         <p class="mb-0">{{ post_cnt }}</p>
                     </div>
                     <div class="px-3">
-                        <p class="small text-muted mb-1">Friends</p>
+                        <p class="small text-muted mb-1"><a class="btn btn-sm btn-outline-secondary" href="{% url 'all-friends' %}">Friends</a></p>
                         <p class="mb-0">{{ friend_cnt }}</p>
                     </div>
                     </div>
                     <div class="d-flex-1 pt-2 ms-4">
                         <a class="btn btn-info" href="{% url 'update-profile' %}" role="button">Update Profile</a>
                         <a class="btn btn-info" href="{% url 'friend-requests' %}">Friend Requests</a>
-                        <a class="btn btn-info" href="{% url 'pending-friend-requests' %}">Pending Requests</a>
+                        <a class="btn btn-info" href="{% url 'pending-friend-requests' %}">Sent Requests</a>
                     </div>
                 </div>
                 </div>

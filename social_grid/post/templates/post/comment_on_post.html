@@ -7,10 +7,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-6">
-                    <div class="card border-info md- my-4"style="max-width: 40rem; min-width: 25rem;">
+                    <div class="card border-info my-4"style="max-width: 40rem; min-width: 25rem;">
                         <div class="card-header"style="background-color: rgba(13, 202, 240, 0.1)">
-                            <div class="row justify-content-end">
-                            </div>
                             <h6 class="card-subtitle mb-2 text-muted"> <br>{{ post.date_created|date:"F j, Y" }}</h6>
                             <h6><a href="{% url 'user-profile' post.account post.account.id %}" class="btn btn-outline-secondary">@{{ post.account }}</a></h6>
                             <h2>{{ post }}</h2>

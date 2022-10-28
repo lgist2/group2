@@ -24,13 +24,18 @@
                             <div class="card-footer">
                                 <div class="col-4">
                                     <p class="small text-muted mb-2">{{ post.likes.count }} Likes </p>
-                                    <p class="small text-muted mb-2">{{ post.comments.count }} Comments </p>
+                                    <p class="small text-muted mb-2">{{ post.comments.count }} Comments  </p>
                                 </div>
-                                <a href="{% url 'like-post' post.account post.id %}" class="btn btn-secondary md-4">Like</a></h6>
+                                {% if liked %}
+                                    <a href="{% url 'unlike-post' post.account post.id %}" class="btn btn-secondary md-4">Unlike</a></h6>
+                                {% else %}
+                                    <a href="{% url 'like-post' post.account post.id %}" class="btn btn-secondary md-4">Like</a></h6>
+                                {% endif %}
+                                
 
                                 <a href="{% url 'comment-post' post.id %}" class="btn btn-secondary">Comment</a>
-                                
-                                
+                                <a href="{% url 'post-comments' post.id %}" class="btn btn-secondary md-4"> View details</a>
+                            
                             </div>
                         </div>
                     </div>
