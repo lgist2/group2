@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from .models import Account
 
 class UserRegisterForm(UserCreationForm):
@@ -67,5 +67,3 @@ class AccountUpdateForm(forms.ModelForm):
         self.fields['image'].widget.attrs['class'] = 'form-control'
         self.fields['bio'].widget.attrs['placeholder'] = 'Bio'
         self.fields['birthday'].widget.attrs['placeholder'] = '2022-01-28'
-
-        

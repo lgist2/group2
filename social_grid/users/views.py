@@ -3,6 +3,7 @@ from tkinter import E
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.contrib.auth import update_session_auth_hash
 from django.http import HttpResponse
 import json
 
@@ -12,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 from post.models import Post
 
 
-def registration(request):
+def registration(request):   
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
