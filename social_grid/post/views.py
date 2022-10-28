@@ -51,6 +51,13 @@ def like_post(request, username, p_id):
     active_user.account.posts_liked.add(post)
     return redirect('home-page')
 
+def unlike_post(request, username, p_id):
+    post = Post.objects.get(id=p_id)
+    post.likes.remove(request.user)
+    active_user = request.user
+    active_user.account.posts_liked.remove(post)
+    return redirect('home-page')
+
 
 def comment_on_post(request, p_id):
     post = Post.objects.get(id=p_id)
@@ -68,3 +75,19 @@ def comment_on_post(request, p_id):
         'form' : form,
     }
     return render(request, 'post/comment_on_post.html', context)
+
+
+def post_comments(request, p_id):
+    has_likes = False
+    post = Post.objects.get(id=p_id)
+    likes = post.likes.all()
+    comments = Comment.objects.filter(post=p_id)
+    if likes.exists():
+        has_likes = True
+    context = {
+        'post' : post,
+        'comments' : comments,
+        'likes' : likes,
+        'has_likes' : has_likes,
+    }
+    return render(request, 'post/post_comments.html', context)

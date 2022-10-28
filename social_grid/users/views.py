@@ -99,21 +99,20 @@ def search_user(request):
 
 @login_required
 def u_profile(request, username, u_id):
-    friend = False
-    friend_of_user = Account.objects.filter(friends=u_id)
+    friend_of_user = False
+    active_account = request.user
+    friend = Account.objects.filter(friends=u_id)
     user = User.objects.get(pk=u_id)
     posts = Post.objects.filter(account=u_id).order_by("-id")
     post_cnt = Post.objects.filter(account=u_id).count
     friend_cnt = Account.objects.filter(friends=u_id).count
-    if friend_of_user.exists():
-        friend = True
-    else:
-        friend = False
+    if friend.exists():
+        friend_of_user = True
     return render(request, 'users/u_profile.html', {'user' : user, 
                                                     'posts' : posts, 
                                                     'post_cnt' : post_cnt,
                                                     'friend_cnt' : friend_cnt,
-                                                    'friend' : friend, 
+                                                    'friend_of_user' : friend_of_user, 
                                                     })
 
 
@@ -164,7 +163,15 @@ def pending_friend_requests(request):
         return render(request,'users/pending_friend_requests.html', {'sent_friend_requests' : sent_friend_requests, 'sent_exists' : sent_exists,})
     
 
-    
+@login_required
+def all_friends(request):
+    has_friends = True
+    friends = Account.objects.filter(friends=request.user)
+    if friends.exists():
+        return render(request,'users/all_friends.html', {'friends' : friends, 'has_friends' : has_friends})
+    else:
+        has_friends = False
+        return render(request,'users/all_friends.html', {'friends' : friends, 'has_friends' : has_friends})
 
 
 

@@ -1,0 +1,47 @@
+{% extends 'base/base.html'%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<section class="vh-100 ">
+    {% if not has_friends %}
+    <div class="container-fluid">
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="col col-md-9 col-md-7 col-xl-5">
+                <div class="card my-3" style="border-radius: 15px;">
+                    <div class="card-body p-4">
+                        <center><h3>Oof, no Friends? Go make some!</h3></center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <center><h2>Friends</h2></center>
+    {% for friend in friends %}
+            <div class="container-fluid">
+                <div class="row justify-content-center align-items-center h-100">
+                <div class="col col-md-9 col-md-7 col-xl-5">
+                    <div class="card my-3" style="border-radius: 15px;">
+                        <div class="card-body p-4">
+                            <div class="d-flex text-black">
+                                <div class="flex-shrink-0">
+                                    <img src="{{ friend.image.url }}"
+                                    alt="Generic placeholder image" class="img-fluid"
+                                    style="width: 100px; border-radius: 10px;">
+                                </div>
+                                <div class="flex-grow-1 ms-4">
+                                    <h5 class="mb-1">{{ friend.user.first_name }} {{ friend.user.last_name }}</h5> <h6>{{ friend.user.username }}</h6>
+                                    <p class="mb-2 pb-1" style="color: #2b2a2a;">Email: {{ friend.user.email|default_if_none:"" }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+    {% endfor %}
+    {% endif %}
+
+    
+</section>    
+{% endblock content%}

@@ -1,0 +1,80 @@
+{% extends 'base/base.html'%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<section class="container-fluid ">
+            <div class="container">
+                <div class="row h-100">
+                    <div class="col-6">
+                        <div class="card border-info me-4 my-4"style="width: 650px;">
+                            <div class="card-header"style="background-color: rgba(13, 202, 240, 0.1)">
+                                <h6 class="card-subtitle mb-2 text-muted"> <br>{{ post.date_created|date:"F j, Y" }}</h6>
+                                <h6><a href="{% url 'user-profile' post.account post.account.id %}" class="btn btn-outline-secondary">@{{ post.account }}</a></h6>
+                                <h2>{{ post }}</h2>
+                            </div>
+                            <div class="card-body">
+                                <h7>{{ post.body|default_if_none:"" }}</h7> <br><br>
+                                <h5>{{ post.hashtags|default_if_none:"" }}</h5>
+                                {% if post.image|default_if_none:"" %}
+                                    <center><img src="{{ post.image.url }}" class="img-fluid card-img-bottom" style="width: 500px; border-radius: 10px;"></center>
+                                {% endif%}
+                            </div>
+                            <div class="card-footer">
+                                <div class="col-4">
+                                    <p class="small text-muted mb-2">{{ post.likes.count }} Likes </p>
+                                    <p class="small text-muted mb-2">{{ post.comments.count }} Comments <a href="{% url 'post-comments' post.id %}" class="btn btn-secondary md-4"></a> </p>
+                                </div>
+                                <a href="{% url 'like-post' post.account post.id %}" class="btn btn-secondary md-4">Like</a></h6>
+
+                                <a href="{% url 'comment-post' post.id %}" class="btn btn-secondary">Comment</a>
+                                   </div>
+                        </div>
+                    </div>
+                    <div class="col-4 my-4">
+                        <div class="card shadow-2-strong overflow-auto" style="border-radius: 15px; max-height: 930px;">
+                            <div class="card-body ">
+                                {% if has_likes %} 
+                                {% for like in likes %}
+                                    <h3 class="mb-4 pb-2">Likers of "{{ post.title}}"!</h3>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-4 pb-2">
+                                            <h6><a href="{% url 'user-profile' like like.id %}" class="btn btn-outline-secondary">@{{ like }}</a></h6>
+                                            <hr>
+                                        
+                                        </div>
+                                    </div>
+                                {%endfor%}
+                                {% else %}
+                                <h3 class="mb-4 pb-2">Be the first to like this post!</h3>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>      
+                </div>
+            </div>
+        </section>
+<section class="vh-100 ">
+    {% for comment in comments %}
+            <div class="container-fluid">
+                <div class="row justify-content-center align-items-center h-100">
+                <div class="col col-md-9 col-md-7 col-xl-5">
+                    <div class="card my-3" style="border-radius: 15px;">
+                        <div class="card-body p-4">
+                            <div class="d-flex text-black">
+                                <div class="flex-grow-1 ms-4">
+                                    <h6><a href="{% url 'user-profile' comment.account comment.account.id %}" class="btn btn-outline-secondary">@{{ comment.account }}</a></h6>
+                                     <hr>
+                                    <p>{{ comment.body }}</p>
+                                    <p class="text-muted"> {{ comment.created_on|date:"F j, Y" }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+    {% endfor %}
+
+    
+</section>    
+{% endblock content%}

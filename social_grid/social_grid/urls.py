@@ -44,7 +44,10 @@ urlpatterns = [
     path('delete-post/<str:pk>/', post_views.deletepost, name='delete-post'),
 
     path('like-post/?=user=<str:username>/?=post<str:p_id>/', post_views.like_post, name='like-post'),
+    path('unlike-post/?=user=<str:username>/?=post<str:p_id>/', post_views.unlike_post, name='unlike-post'),
     path('comment-on-post/?=post<str:p_id>/', post_views.comment_on_post, name='comment-post'),
+    path('post-comments/?=post<str:p_id>/', post_views.post_comments, name='post-comments'),
+
 
     path('search-user/', user_views.search_user, name='search-user'),
     path('user-profile/?=user=<str:username>/?=<str:u_id>', user_views.u_profile, name='user-profile'),
@@ -53,4 +56,5 @@ urlpatterns = [
     path('decline/<str:u_id>/', user_views.decline_request, name='decline'),
     path('profile/friend-requests', user_views.friend_requests, name='friend-requests'),
     path('profile/pending-friend-requests', user_views.pending_friend_requests, name='pending-friend-requests'),
+    path('all-friends/', user_views.all_friends, name='all-friends'),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
