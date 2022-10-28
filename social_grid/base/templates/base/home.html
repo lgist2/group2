@@ -2,10 +2,46 @@
 {% load static %}
 
 {% block content%}
+<section class="container-fluid ">
+    <div class="container">
+        <div class="row">
+                <div class="col-8 my-4">
+                    <div class="card shadow-2-strong overflow-auto" style="border-radius: 15px; max-height: 500px; width:400px;">
+                        <div class="card-body ">
+                            <h3 class="mb-6 pb-2">Friends</h3>
+                            {% for friend in friends %}
+                                <div class="row">
+                                    <div class="col pb-2">
+                                        <h6><a href="{% url 'user-profile' friend friend.id %}" class="btn btn-outline-secondary">@{{ friend }}</a></h6>
+                                        <hr>
+                                    
+                                    </div>
+                                </div>
+                            {%endfor%}
+                        </div>
+                    </div>
+                </div>      
+        
+        <div class="col-4 my-4">
+            <div class="card shadow-2-strong overflow-auto" style="border-radius: 15px; max-height: 500px; width:400px;">
+                <div class="card-body ">
+                    <h3 class="mb-6 pb-2">Suggested</h3>
+                    {% for friend in not_friends %}
+                        <div class="row">
+                            <div class="col pb-2">
+                                <h6><a href="{% url 'user-profile' friend friend.id %}" class="btn btn-outline-secondary">@{{ friend }}</a></h6>
+                                <hr>
+                            
+                            </div>
+                        </div>
+                    {%endfor%}
+                </div>
+            </div>
+        </div>      
+    </div>
     {% if posts %}
         {% for post in posts %}
-         <section class="container-fluid ">
-            <div class="container">
+        
                 <div class="row justify-content-center align-items-center h-100">
                     <div class="col-6"><br><br>
                         <div class="card border-info md-4"style="width: 650px;">
@@ -13,7 +49,7 @@
                                 <h6 class="card-subtitle mb-2 text-muted"> <br>{{ post.date_created|date:"F j, Y" }}</h6>
                                 <h6><a href="{% url 'user-profile' post.account post.account.id %}" class="btn btn-outline-secondary">@{{ post.account }}</a></h6>
                                 <h2>{{ post }}</h2>
-                            </div>        
+                            </div>
                             <div class="card-body">
                                 <h7>{{ post.body|default_if_none:"" }}</h7> <br><br>
                                 <h5>{{ post.hashtags|default_if_none:"" }}</h5>
@@ -26,12 +62,9 @@
                                     <p class="small text-muted mb-2">{{ post.likes.count }} Likes </p>
                                     <p class="small text-muted mb-2">{{ post.comments.count }} Comments  </p>
                                 </div>
-                                {% if liked %}
-                                    <a href="{% url 'unlike-post' post.account post.id %}" class="btn btn-secondary md-4">Unlike</a></h6>
-                                {% else %}
-                                    <a href="{% url 'like-post' post.account post.id %}" class="btn btn-secondary md-4">Like</a></h6>
-                                {% endif %}
                                 
+                                <a href="{% url 'like-post' post.account post.id %}" class="btn btn-secondary md-4">Like</a></h6>
+                                <a href="{% url 'unlike-post' post.account post.id %}" class="btn btn-secondary me-4">Unlike</a></h6>
 
                                 <a href="{% url 'comment-post' post.id %}" class="btn btn-secondary">Comment</a>
                                 <a href="{% url 'post-comments' post.id %}" class="btn btn-secondary md-4"> View details</a>
@@ -40,22 +73,20 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+        
         {% endfor %}
     {% else %}
-    <section class="vh-100 ">
-        <div class="container">
-            <div class="row justify-content-center align-items-center h-100">
-                <div class="card border-info md-4"style="width: 50rem;">
-                    <div class="card-header"style="background-color: white">
-                        <center><h2>There are no posts!</h2></center>
+                <div class="row justify-content-center align-items-center h-100">
+                    <div class="card border-info md-4"style="width: 50rem;">
+                        <div class="card-header"style="background-color: white">
+                            <center><h2>There are no posts!</h2></center>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
     {%endif%}
+
+    </div>
+</section>
 
     <div class="container">
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
