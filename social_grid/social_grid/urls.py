@@ -26,14 +26,26 @@ urlpatterns = [
     path('register/', user_views.registration, name='register'),
     path('profile/', user_views.profile, name='profile'),
     path('profile/update-profile', user_views.update_profile, name='update-profile'),
+
+    path('password_change/', auth_views.PasswordChangeView.as_view(template_name='users/password_change.html'), name='password_change'),
+    path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='users/password_change_done.html'), name='password_change_done'),
+    path('password_reset/', auth_views.PasswordResetView.as_view(template_name="users/password_reset_form.html"), name='password_reset'), 
+    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name="users/password_reset_done.html"), name='password_reset_done'),#success email sent
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="users/password_reset_confirm.html"), name='password_reset_confirm'),
+    path('password_reset/complete', auth_views.PasswordResetCompleteView.as_view(template_name="users/password_reset_complete.html"), name='password_reset_complete'),
+
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
+
     path('', include('base.urls')),
+
     path('create-post/', post_views.addpost, name='createpost'),
     path('update-post/<str:pk>/', post_views.updatepost, name='update-post'),
     path('delete-post/<str:pk>/', post_views.deletepost, name='delete-post'),
+
     path('like-post/?=user=<str:username>/?=post<str:p_id>/', post_views.like_post, name='like-post'),
     path('comment-on-post/?=post<str:p_id>/', post_views.comment_on_post, name='comment-post'),
+
     path('search-user/', user_views.search_user, name='search-user'),
     path('user-profile/?=user=<str:username>/?=<str:u_id>', user_views.u_profile, name='user-profile'),
     path('add-friend/<str:u_id>/', user_views.send_friend_request, name='add-friend'),
