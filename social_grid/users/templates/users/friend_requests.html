@@ -18,7 +18,7 @@
                                         </div>
                                         <div class="flex-grow-1 ms-4">
                                             <h5 class="mb-1">{{ request.sender.first_name }} {{ request.sender.last_name }}</h5> 
-                                            <h6><a href="{% url 'user-profile' request.sender.id %}" class="btn btn-secondary">View Profile: {{ request.sender }}</a></h6>
+                                            <h6><a href="{% url 'user-profile' request.sender request.sender.id %}" class="btn btn-secondary">View Profile: {{ request.sender }}</a></h6>
                                             <a class="btn btn-success" href="{% url 'accept' request.id %}"> Accept</a>
                                             <a class="btn btn-danger" href="{% url 'decline' request.id %}"> Decline </a>
                                         </div>
