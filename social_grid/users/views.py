@@ -101,18 +101,20 @@ def search_user(request):
 def u_profile(request, username, u_id):
     friend_of_user = False
     active_account = request.user
-    friend = Account.objects.filter(friends=u_id)
     user = User.objects.get(pk=u_id)
+    friends = Account.objects.filter(friends=request.user)
     posts = Post.objects.filter(account=u_id).order_by("-id")
     post_cnt = Post.objects.filter(account=u_id).count
     friend_cnt = Account.objects.filter(friends=u_id).count
-    if friend.exists():
-        friend_of_user = True
+    for friend in friends:
+        if friend == user.account:
+            friend_of_user = True
     return render(request, 'users/u_profile.html', {'user' : user, 
                                                     'posts' : posts, 
                                                     'post_cnt' : post_cnt,
                                                     'friend_cnt' : friend_cnt,
-                                                    'friend_of_user' : friend_of_user, 
+                                                    'friend_of_user' : friend_of_user,
+                                                    'friend' : friend,
                                                     })
 
 
