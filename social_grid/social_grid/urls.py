@@ -57,4 +57,5 @@ urlpatterns = [
     path('profile/friend-requests', user_views.friend_requests, name='friend-requests'),
     path('profile/pending-friend-requests', user_views.pending_friend_requests, name='pending-friend-requests'),
     path('all-friends/', user_views.all_friends, name='all-friends'),
+    path('all-suggestions/', user_views.all_suggestions, name='all-suggestions'),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

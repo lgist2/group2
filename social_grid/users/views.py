@@ -19,7 +19,7 @@ def registration(request):
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, 'Account created for ' + username)
+            messages.success(request, 'Account created for ' + username +'! Please login below.')
             
              #need to add message to html instead
             #Relationship.objects.create(user=user,)
@@ -174,6 +174,17 @@ def all_friends(request):
     else:
         has_friends = False
         return render(request,'users/all_friends.html', {'friends' : friends, 'has_friends' : has_friends})
+
+@login_required
+def all_suggestions(request):
+    has_friends = True
+    active_user = request.user
+    not_friends = Account.objects.exclude(friends=active_user).exclude(user=active_user)
+    if not_friends.exists():
+        return render(request,'users/all_suggestions.html', {'not_friends' : not_friends, 'has_friends' : has_friends})
+    else:
+        has_friends = False
+        return render(request,'users/all_suggestions.html', {'not_friends' : not_friends, 'has_friends' : has_friends})
 
 
 
