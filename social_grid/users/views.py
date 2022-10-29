@@ -24,6 +24,7 @@ def registration(request):
              #need to add message to html instead
             #Relationship.objects.create(user=user,)
             Account.objects.create(user=user,) #creates a profile account for the new user
+            user.account.friends.add(user)
             return redirect('login')
     else:
         form = UserRegisterForm()
@@ -38,7 +39,7 @@ def profile(request):
     current_posts = Post.objects.all()
     user_posts = Post.objects.filter(account=active_account.account).order_by("-id")
     post_cnt = Post.objects.filter(account=active_account.account).count
-    friend_cnt = Account.objects.filter(friends=active_account.account).count
+    friend_cnt = Account.objects.filter(friends=active_account.account).exclude(user=active_account.account).count
     friend_requests = FriendRequest.objects.filter(reciever=request.user)
     current_users = User.objects.exclude(username=request.user)
     #followers = Account.objects.filter(followers=active_account.account).count
@@ -167,7 +168,7 @@ def pending_friend_requests(request):
 @login_required
 def all_friends(request):
     has_friends = True
-    friends = Account.objects.filter(friends=request.user)
+    friends = Account.objects.filter(friends=request.user).exclude(user=request.user)
     if friends.exists():
         return render(request,'users/all_friends.html', {'friends' : friends, 'has_friends' : has_friends})
     else:

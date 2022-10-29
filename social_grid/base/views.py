@@ -18,7 +18,7 @@ def home(request):
     users = User.objects.all()
     not_friends = Account.objects.exclude(friends=active_user).exclude(user=active_user)
     posts = Post.objects.filter(account__friends=active_user.account).order_by("-id")
-    friends = Account.objects.filter(friends=active_user)
+    friends = Account.objects.filter(friends=active_user).exclude(user=active_user)
     likes = Post.objects.filter(likes=active_user)
     context = {
         'posts' : posts,
