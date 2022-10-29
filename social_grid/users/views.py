@@ -114,7 +114,6 @@ def u_profile(request, username, u_id):
                                                     'post_cnt' : post_cnt,
                                                     'friend_cnt' : friend_cnt,
                                                     'friend_of_user' : friend_of_user,
-                                                    'friend' : friend,
                                                     })
 
 

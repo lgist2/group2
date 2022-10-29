@@ -9,9 +9,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <title>Social Grid</title>
 </head>
-<body style="background: radial-gradient(circle, #242728, #ffffff)">
-    
-    <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #1D1F20">
+<body style="background-color: #242728">
+    <nav class="navbar sticky-top navbar-expand-sm navbar-dark" style="background-color: #1D1F20">
         <div class="container-fluid">
           <a class="navbar-brand" href="{% url 'home-page' %}"><img src="{% static 'base/images/png/logo-only-nobg.png' %}" width="50" height="44"></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
@@ -21,16 +20,12 @@
             <ul class="navbar-nav me-auto">
               {% if user.is_authenticated %}
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'home-page' %}">Home</a>
+                  <a class="nav-link" href="{% url 'home-page' %}"><i class="fs-4 bi-house-door-fill"></i></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'createpost' %}">Create Post</a>
+                  <a class="nav-link " href="{% url 'createpost' %}"><i class="fs-4 bi-plus-square"></i></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Message</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'profile' %}">@{{ request.user }}</a>
                 </li>
                 <li class="d-flex">
                    
@@ -39,7 +34,7 @@
                 </ul>
                 <form class="d-flex" method="POST" action="{% url 'search-user' %}">
                   {% csrf_token %}
-                  <button class="btn btn-outline-info me-1" type="submit">Search</button>
+                  <button  class="btn btn-outline-info" type="submit">Search</button>
                   <input class="form-control me-4" type="text" placeholder="Search For Users" name="search">
                 </form>
                 <a class="btn btn-outline-info" href="{% url 'logout' %}" role="button">Logout</a>
