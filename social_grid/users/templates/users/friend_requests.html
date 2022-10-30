@@ -7,6 +7,9 @@
             {% for request in friend_requests %}
                 <div class="container-fluid">
                     <div class="row justify-content-center align-items-center h-100">
+                        {% for message in messages %}
+                            <p><h5 style="color:green">{{ message }}</h5></p>
+                        {% endfor %}
                         <div class="col col-md-9 col-md-7 col-xl-5">
                             <div class="card my-3" style="border-radius: 15px;">
                                 <div class="card-body p-4">
@@ -32,12 +35,12 @@
         {% else %}
                 <div class="container-fluid">
                     <div class="row justify-content-center align-items-center h-100">
-                        <div class="col col-md-9 col-md-7 col-xl-5">
+                        <div class="col col-md-9 col-md-5 col-xl-3">
                             <div class="card my-3" style="border-radius: 15px;">
                                 <div class="card-body p-4">
                                     <div class="d-flex text-black">
-                                        <div class="flex-shrink-0">
-                                            <h1>No new friend requests</h1>
+                                        <div class="flex-shrink">
+                                            <h1>No new notifications.</h1>
                                         </div>
                                     </div>
                                 </div>

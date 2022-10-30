@@ -4,8 +4,6 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import update_session_auth_hash
-from django.http import HttpResponse
-import json
 
 from .models import Account, FriendRequest
 from .forms import UserRegisterForm, UserUpdateForm, AccountUpdateForm
@@ -90,23 +88,26 @@ def update_profile(request):
 
 @login_required
 def search_user(request):
+    real = False
     if request.method == 'POST':
         search = request.POST['search']
-        users = User.objects.filter(username__contains=search)
+        users = User.objects.filter(username__contains=search) | User.objects.filter(first_name__contains=search) | User.objects.filter(last_name__contains=search)
+        if users.exists():
+            real = True
         current_user = request.user
-        return render(request, 'users/search_user.html', {'search' : search, 'users' : users, 'current_users' : current_user,})
+        return render(request, 'users/search_user.html', {'search' : search, 'users' : users, 'current_users' : current_user, 'real' : real,})
     else:
-        return render(request, 'users/search_user.html', {'search' : search, 'users' : users, 'current_users' : current_user,})
+        return render(request, 'users/search_user.html', {'search' : search, 'users' : users, 'current_users' : current_user, 'real' : real,})
 
 @login_required
 def u_profile(request, username, u_id):
     friend_of_user = False
     active_account = request.user
     user = User.objects.get(pk=u_id)
-    friends = Account.objects.filter(friends=request.user)
+    friends = Account.objects.filter(friends=active_account)
     posts = Post.objects.filter(account=u_id).order_by("-id")
     post_cnt = Post.objects.filter(account=u_id).count
-    friend_cnt = Account.objects.filter(friends=u_id).count
+    friend_cnt = Account.objects.filter(friends=u_id).exclude(user=u_id).count
     for friend in friends:
         if friend == user.account:
             friend_of_user = True
@@ -122,6 +123,7 @@ def u_profile(request, username, u_id):
 def send_friend_request(request, u_id):
     sender = request.user
     reciever = User.objects.get(pk=u_id)
+    messages.success(request, 'Friend request sent!')
     FriendRequest.objects.get_or_create(sender=sender, reciever=reciever)
     return redirect('profile')
 
@@ -133,12 +135,14 @@ def accept_request(request, u_id):
     sender = friend_request.sender #this is the user who sent the FR
     sender.account.friends.add(active_user) #adds logged in user who accepted FR to friends list
     friend_request.delete()
+    messages.success(request, 'Friend request accepted!')
     return redirect('friend-requests')
 
 @login_required
 def decline_request(request, u_id):
     friend_request = FriendRequest.objects.get(pk=u_id)
     friend_request.delete()
+    messages.success(request, 'Friend request Declined!')
     return redirect('friend-requests')
 
 

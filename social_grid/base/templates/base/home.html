@@ -5,7 +5,7 @@
 
 <div class="container-fluid">
     <div class="row flex-xl-nowrap">
-        <div class="col-12 col-md-3 col-xl-2 sidebar">
+        <div class="col-12 col-md-3 col-xl-2 sidebar" style="background-color:#1D1F20">
             <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white sticky-top">
                 <br>
                 <a href="{% url 'profile' %}" class="d-flex align-items-center text-white text-decoration-none">
@@ -14,22 +14,30 @@
                 </a>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li class="nav-item">
-                        <a href="#" class="nav-link align-middle px-0">
+                        <a href="#" class="nav-link align-middle px-0" style="color:#0dcaf0;">
                             <i class="fs-4 bi-house-door-fill"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <h7><a class="nav-link align-middle px-0" href="{% url 'createpost' %}"><i class="fs-4 bi-plus-square"></i></a></h5>
-                    </li>
-                    <li class="nav-item">
-                        <h7><a class="nav-link align-middle px-0" href="{% url 'all-friends' %}"><i class="fs-4 bi-person-check"></i> Friends</a></h7>
-                    </li>
-                    <li class="nav-item">
-                        <h7><a class="nav-link align-middle px-0" href="{% url 'all-suggestions' %}"><i class="fs-4 bi-person"></i> Suggestions</a></h7>
+                    <li>
+                        <h7><a class="nav-link align-middle px-0" href="{% url 'createpost' %}" style="color:#0dcaf0;"><i class="fs-4 bi-plus-square"></i> Post</a></h7>
                     </li>
                     <li>
+                        <h7><a class="nav-link align-middle px-0" href="{% url 'all-friends' %}" style="color:#0dcaf0;"><i class="fs-4 bi-person-check"></i> Friends</a></h7>
                     </li>
                     <li>
+                        <h7><a class="nav-link align-middle px-0" href="{% url 'all-suggestions' %}" style="color:#0dcaf0;"><i class="fs-4 bi-person"></i><i class="fs-4 bi-person"></i> Suggestions</a></h7>
+                    </li>
+                    <li>
+                        <h7><a class="nav-link align-middle px-0" href="{% url 'friend-requests' %}" style="color:#0dcaf0;"><i class="fs-4 bi-bell"></i> Notifications</a></h7>
+                    </li>
+                    <li>
+                        <h7><a class="nav-link align-middle px-0" href="{% url 'pending-friend-requests' %}" style="color:#0dcaf0;"><i class="fs-4 bi-send"></i> Pending Friends</a></h7>
+                    </li>
+                    <li>
+                        <h7><a class="nav-link align-middle px-0" href="{% url 'posts-liked' %}" style="color:#0dcaf0;"><i class="fs-4 bi-hand-thumbs-up"></i> Likes</a></h7>
+                    </li>
+                    <li>
+                        <h7><a class="nav-link align-middle px-0" href="{% url 'posts-commented' %}" style="color:#0dcaf0;"><i class="fs-4 bi-chat-left-text"></i> Comments</a></h7>
                     </li>
                 </ul>
                 
@@ -61,12 +69,10 @@
                                             <p class="small text-muted mb-2">{{ post.likes.count }} Likes </p>
                                             <p class="small text-muted mb-2">{{ post.comments.count }} Comments  </p>
                                         </div>
-                                        
-                                        <a href="{% url 'like-post' post.account post.id %}" class="btn btn-secondary md-4">Like</a></h6>
-                                        <a href="{% url 'unlike-post' post.account post.id %}" class="btn btn-secondary me-4">Unlike</a></h6>
-        
-                                        <a href="{% url 'comment-post' post.id %}" class="btn btn-secondary">Comment</a>
-                                        <a href="{% url 'post-comments' post.id %}" class="btn btn-secondary md-4"> View details</a>
+                                            <a class="col-12 px-2" href="{% url 'like-post' post.account post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-hand-thumbs-up"></i></a>
+                                            <a class="col-12 px-2" href="{% url 'unlike-post' post.account post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-hand-thumbs-down"></i></a>
+                                            <a class="col-12 px-2" href="{% url 'comment-post' post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-chat-left-text"></i></a>
+                                            <a href="{% url 'post-details' post.id %}" class="btn btn-sm btn-secondary md-4"> View details</a>
                                     </div>
                                 </div>
                             </div>
@@ -100,24 +106,20 @@
         </main>
 
 
-        <div class=" d-xl-block col-xl-2 bd-content">
-                <ul class="section-nav sticky-top">
-                    <div class="flex-column justify-content align-items-sm-end px-3 text-white">
+        <div class=" d-xl-block col-xl-2 sidebar" style="background-color:#1D1F20">
+                    <div class="flex-column justify-content align-items-sm-end px-3 text-white sticky-top">
                         <br><br><br>
                         
-                        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                            <li class="nav-item">
-                            </li>
+                        <ul class="nav align-items-center align-items-sm-start overflow-hidden" id="menu">
                             <li>
                                     <h5>Friends</h5>
-                                    <div class="row overflow-auto" style="max-height: 500px;">
-                                        <a class="nav-link " href="{% url 'all-friends' %}"><i class="fs-4 bi-person-check"></i></a>
+                                    <div class="row overflow-auto" style="max-height: 400px;">
+                                        <a class="nav-link " href="{% url 'all-friends' %}" style="color:#0dcaf0;"><i class="fs-4 bi-person-check"></i></a>
                                         {% for friend in friends %}
                                                 <div class="row">
                                                     <div class="col pb-2">
                                                         <h6><a href="{% url 'user-profile' friend friend.id %}" class="btn btn-outline-secondary">@{{ friend }}</a></h6>
                                                         <hr>
-                                                    
                                                     </div>
                                                 </div>
                                             {%endfor%} 
@@ -126,17 +128,19 @@
                             <li>
                                 
                                 <h5>Suggested Friends</h5>
-                                <a class="nav-link" href="{% url 'all-suggestions' %}"><i class="fs-4 bi-person"></i> <i class="fs-4 bi-person"></i></a>
-                                <div class="row overflow-auto" style="max-height: 500px;">
-                                    {% for friend in not_friends %}
-                                                
-                                                    <div class="col pb-6">
-                                                        <h6><a href="{% url 'user-profile' friend friend.id %}" class="btn btn-md btn-outline-secondary">@{{ friend }}</a></h6>
-                                                        <hr>
-                                                    </div>
-                                                
-                                            {%endfor%} 
-                                </div>
+                                <div class="row overflow-auto" style="max-height: 400px;">
+                                    <a class="nav-link" href="{% url 'all-suggestions' %}" style="color:#0dcaf0;"><i class="fs-4 bi-person"></i> <i class="fs-4 bi-person"></i></a>
+                                    <div class="row overflow-auto" style="max-height: 500px;">
+                                        {% for friend in not_friends %}
+                                                    
+                                                        <div class="col pb-6">
+                                                            <h6><a href="{% url 'user-profile' friend friend.id %}" class="btn btn-md btn-outline-secondary">@{{ friend }}</a></h6>
+                                                            <hr>
+                                                        </div>
+                                                    
+                                                {%endfor%} 
+                                    </div>
+                                </div>    
                             </li>
                             <li>
                                 
@@ -161,7 +165,7 @@
 
         
 
-    <div class="container">
+    <!-- <div class="container">
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
         <p class="col-md-4 mb-0 text-muted">&copy; 2022 Social Grid, Inc</p>
     
@@ -170,13 +174,11 @@
         
     
         <ul class="nav col-md-4 justify-content-end">
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Top</a></li>
             <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link px-2 text-muted">Logout</a></li>
         </ul>
         </footer>
-    </div>
+    </div> -->
 
 
 {% endblock content %}

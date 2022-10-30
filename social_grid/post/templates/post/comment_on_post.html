@@ -8,20 +8,20 @@
             <div class="row">
                 <div class="col-6">
                     <div class="card border-info my-4"style="max-width: 40rem; min-width: 25rem;">
-                        <div class="card-header"style="background-color: rgba(13, 202, 240, 0.1)">
+                        <div class="card-header"style="background-color: rgba(13, 202, 240, 0.3)">
                             <h6 class="card-subtitle mb-2 text-muted"> <br>{{ post.date_created|date:"F j, Y" }}</h6>
                             <h6><a href="{% url 'user-profile' post.account post.account.id %}" class="btn btn-outline-secondary">@{{ post.account }}</a></h6>
                             <h2>{{ post }}</h2>
                             
                         </div>                      
-                        <div class="card-body">
+                        <div class="card-body" style="background-color:#1D1F20; color:white;">
                             <h7>{{ post.body|default_if_none:"" }}</h7> <br><br>
                             <h5>{{ post.hashtags|default_if_none:"" }}</h5>
                             {% if post.image|default_if_none:"" %}
                             <center><img src="{{ post.image.url }}" class="img-fluid card-img-bottom" style="width: 500px; border-radius: 10px;"></center>
                             {% endif%}
                         </div>
-                        <div class="card-footer">
+                        <div class="card-footer" style="background-color: rgba(13, 202, 240, 0.3)">
                             <p class="small text-muted mb-2">{{ post.likes.count }} Likes </p>
                         </div>
                     </div>
