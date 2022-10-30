@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from users.models import Account
 from django.contrib.auth.models import User
 from .models import Post, Comment
+from django.contrib import messages
 from .forms import CommentForm, PostForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -49,14 +50,16 @@ def like_post(request, username, p_id):
     post.likes.add(request.user)
     active_user = request.user
     active_user.account.posts_liked.add(post)
-    return redirect('home-page')
+    messages.success(request, 'Post liked!')
+    return redirect('post-details', p_id)
 
 def unlike_post(request, username, p_id):
     post = Post.objects.get(id=p_id)
     post.likes.remove(request.user)
     active_user = request.user
     active_user.account.posts_liked.remove(post)
-    return redirect('home-page')
+    messages.success(request, 'Post unliked!')
+    return redirect('post-details', p_id)
 
 
 def comment_on_post(request, p_id):
@@ -69,7 +72,8 @@ def comment_on_post(request, p_id):
             instance.account = request.user
             instance.post = post
             instance.save()
-            return redirect('home-page')
+            messages.success(request, 'Comment added!')
+            return redirect('post-details', p_id)
     context = {
         'post' : post,
         'form' : form,
@@ -77,7 +81,7 @@ def comment_on_post(request, p_id):
     return render(request, 'post/comment_on_post.html', context)
 
 
-def post_comments(request, p_id):
+def post_details(request, p_id):
     has_likes = False
     post = Post.objects.get(id=p_id)
     likes = post.likes.all()
@@ -90,4 +94,20 @@ def post_comments(request, p_id):
         'likes' : likes,
         'has_likes' : has_likes,
     }
-    return render(request, 'post/post_comments.html', context)
+    return render(request, 'post/post_details.html', context)
+
+def posts_liked(request):
+    active_user = request.user
+    posts = Post.objects.filter(likes=active_user)
+    context = {
+        'posts' : posts, 
+    }
+    return render(request, 'post/posts_liked.html', context)
+
+def posts_commented(request):
+    active_user = request.user
+    comments = Comment.objects.filter(account=active_user)
+    context = {
+        'comments' : comments, 
+    }
+    return render(request, 'post/posts_commented.html', context)

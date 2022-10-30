@@ -20,24 +20,29 @@
             <ul class="navbar-nav me-auto">
               {% if user.is_authenticated %}
                 <li class="nav-item">
+                  <a href="{% url 'profile' %}" class="nav-link">
+                    <img src="{{ user.account.image.url }}" width="30" height="30" class="rounded-circle"></a>
+                </li>
+                <li class="nav-item">
                   <a class="nav-link" href="{% url 'home-page' %}"><i class="fs-4 bi-house-door-fill"></i></a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link " href="{% url 'createpost' %}"><i class="fs-4 bi-plus-square"></i></a>
                 </li>
                 <li class="nav-item">
+                  <a class="nav-link " href="{% url 'friend-requests' %}"><i class="fs-4 bi-bell"></i></a>
                 </li>
-                <li class="d-flex">
-                   
+                <li class="nav-item">
+                  <a class="nav-link " href="{% url 'pending-friend-requests' %}"><i class="fs-4 bi-send"></i></a>
                 </li>
-                
-                </ul>
+
+              </ul>
                 <form class="d-flex" method="POST" action="{% url 'search-user' %}">
                   {% csrf_token %}
-                  <button  class="btn btn-outline-info" type="submit">Search</button>
+                  <button  class="btn btn-outline-info me-2" type="submit"><i class="fs-6 bi-search"></i></button>
                   <input class="form-control me-4" type="text" placeholder="Search For Users" name="search">
                 </form>
-                <a class="btn btn-outline-info" href="{% url 'logout' %}" role="button">Logout</a>
+                  <a class="btn btn-outline-info" href="{% url 'logout' %}"><i class="fs-6 bi-box-arrow-right"></i></a>
                 
               {% else %}
                 <ul class="navbar-nav me-auto">

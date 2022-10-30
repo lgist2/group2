@@ -46,7 +46,7 @@ urlpatterns = [
     path('like-post/?=user=<str:username>/?=post<str:p_id>/', post_views.like_post, name='like-post'),
     path('unlike-post/?=user=<str:username>/?=post<str:p_id>/', post_views.unlike_post, name='unlike-post'),
     path('comment-on-post/?=post<str:p_id>/', post_views.comment_on_post, name='comment-post'),
-    path('post-comments/?=post<str:p_id>/', post_views.post_comments, name='post-comments'),
+    path('post-details/?=post<str:p_id>/', post_views.post_details, name='post-details'),
 
 
     path('search-user/', user_views.search_user, name='search-user'),
@@ -58,4 +58,6 @@ urlpatterns = [
     path('profile/pending-friend-requests', user_views.pending_friend_requests, name='pending-friend-requests'),
     path('all-friends/', user_views.all_friends, name='all-friends'),
     path('all-suggestions/', user_views.all_suggestions, name='all-suggestions'),
+    path('liked-posts/', post_views.posts_liked, name='posts-liked'),
+    path('commented-posts/', post_views.posts_commented, name='posts-commented'),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

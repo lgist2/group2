@@ -1,44 +1,53 @@
 {% extends 'base/base.html'%}
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block content %}
 <section class="vh-100 ">
     {% if search %}
     <div class="container-fluid">
-        <div class="row justify-content-center align-items-center h-100">
+        <div class="row justify-content-end align-items-center h-100">
             <div class="col col-md-9 col-md-7 col-xl-5">
-                <div class="card my-3" style="border-radius: 15px;">
-                    <div class="card-body p-4">
-                        <center><h3>You searched for '{{ search }}'.</h3></center>
-                    </div>
-                </div>
+                    
+                        <center><h6 style="color:grey">You searched for '{{ search }}'.</h6></center>
+                
             </div>
         </div>
     </div>
     {% if not current_user %}
-    {% for user in users %}
-            <div class="container-fluid">
-                <div class="row justify-content-center align-items-center h-100">
-                <div class="col col-md-9 col-md-7 col-xl-5">
-                    <div class="card my-3" style="border-radius: 15px;">
-                        <div class="card-body p-4">
-                            <div class="d-flex text-black">
-                                <div class="flex-shrink-0">
-                                    <img src="{{ user.account.image.url }}"
-                                    alt="Generic placeholder image" class="img-fluid"
-                                    style="width: 180px; border-radius: 10px;">
-                                </div>
-                                <div class="flex-grow-1 ms-4">
-                                    <h5 class="mb-1">{{ user.first_name }} {{ user.last_name }}</h5> <h6><a href="{% url 'user-profile' user.username user.id %}" class="btn btn-info">{{ user.username }}</a></h6>
-                                    <p class="mb-2 pb-1" style="color: #2b2a2a;">Email: {{ user.email|default_if_none:"" }}</p>
+        {% if real %}
+            {% for user in users %}
+                    <div class="container-fluid">
+                        <div class="row justify-content-center align-items-center h-100">
+                        <div class="col col-md-9 col-md-7 col-xl-5">
+                            <div class="card my-3" style="border-radius: 15px;">
+                                <div class="card-body p-4">
+                                    <div class="d-flex text-black">
+                                        <div class="flex-shrink-0">
+                                            <img src="{{ user.account.image.url }}"
+                                            alt="Generic placeholder image" class="img-fluid"
+                                            style="width: 180px; border-radius: 10px;">
+                                        </div>
+                                        <div class="flex-grow-1 ms-4">
+                                            <h5 class="mb-1">{{ user.first_name }} {{ user.last_name }}</h5> <h6><a href="{% url 'user-profile' user.username user.id %}" class="btn btn-info">{{ user.username }}</a></h6>
+                                            <p class="mb-2 pb-1" style="color: #2b2a2a;">Email: {{ user.email|default_if_none:"" }}</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        </div>
                     </div>
-                </div>
+                {% endfor %}
+            {% else %}
+            <div class="container-fluid">
+                <div class="row justify-content-center align-items-center h-100">            
+                        <center> <img src="{% static 'base/images/png/starwars.png' %}"
+                        alt="login form" class="img-fluid" style="border-radius: 1rem 1rem 1rem 1rem; max-width: 100rem;" /><br>
+                        <h3 style="color:white;">Try a different search...</h3></center>
                 </div>
             </div>
-        {% endfor %}
+            {% endif %}
         {% endif %}
     {% else %}
     <div class="container-fluid">
