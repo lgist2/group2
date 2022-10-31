@@ -35,6 +35,7 @@ urlpatterns = [
     path('password_reset/complete', auth_views.PasswordResetCompleteView.as_view(template_name="users/password_reset_complete.html"), name='password_reset_complete'),
 
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
+    path('logout_check/', user_views.logout_check, name='logout_check'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
 
     path('', include('base.urls')),

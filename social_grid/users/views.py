@@ -28,6 +28,9 @@ def registration(request):
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
 
+def logout_check(request):
+    return render(request, 'users/logout_check.html', {})
+
 @login_required()
 def profile(request):
     
