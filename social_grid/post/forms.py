@@ -1,10 +1,10 @@
 from django import forms
 from django.forms import ModelForm
-from .models import AddPost
+from .models import Post, Comment
 
-class AddPostForm(ModelForm):
+class PostForm(ModelForm):
     class Meta:
-        model = AddPost
+        model = Post
         fields = [
             'title',
             'hashtags',
@@ -19,3 +19,13 @@ class AddPostForm(ModelForm):
         self.fields['body'].widget.attrs['class'] = 'form-control'
         self.fields['image'].widget.attrs['class'] = 'form-control'
 
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = [
+            'body',
+        ]
+        
+    def __init__(self, *args,  **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['body'].widget.attrs['class'] = 'form-control'

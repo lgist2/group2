@@ -2,11 +2,14 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<section class="vh-100 " style="background: radial-gradient(circle, #242728, #ffffff)">
-    <div class="container h-20">
+<section class="vh-100">
+    <div class="container-fluid">
         <div class="row justify-content-center align-items-center h-100">
         <div class="col col-md-9 col-md-7 col-xl-5">
-            <div class="card" style="border-radius: 15px;">
+            {% for message in messages %}
+                <p><h5 style="color:green">{{ message }}</h5></p>
+            {% endfor %}
+            <div class="card my-3" style="border-radius: 15px;">
             <div class="card-body p-4">
                 <div class="d-flex text-black">
                 <div class="flex-shrink-0">
@@ -15,31 +18,36 @@
                     style="width: 180px; border-radius: 10px;">
                 </div>
                 <div class="flex-grow-1 ms-4">
-                    <h5 class="mb-1">{{ user.first_name }} {{ user.last_name }}</h5> <h6>{{ user.username }}</h6>
+                    <h5 class="mb-1">{{ user.first_name }} {{ user.last_name }}</h5> <h6>@{{ user.username }}</h6>
                     <p class="mb-2 pb-1" style="color: #2b2a2a;">Email: {{ user.email|default_if_none:"" }}</p>
                     <p class="mb-2 pb-1" style="color: #2b2a2a;">Bio: {{ user.account.bio|default_if_none:"" }}</p>
                     <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
                     style="background-color: #efefef;">
-                    <div>
-                        <p class="small text-muted mb-1">Posts</p>
-                        <p class="mb-0">{{ post_cnt }}</p>
+                        <div>
+                            <p class="small text-muted mb-1"><a class="btn btn-sm btn-outline-secondary" href="{% url 'profile' %}">Posts</a></p>
+                            <p class="mb-0">{{ post_cnt }}</p>
+                        </div>
+                        <div class="px-3">
+                            <p class="small text-muted mb-1"><a class="btn btn-sm btn-outline-secondary" href="{% url 'all-friends' %}">Friends</a></p>
+                            <p class="mb-0">{{ friend_cnt }}</p>
+                        </div>
+                        <div class="px-1">
+                            <p class="small text-muted mb-1"><a class="btn btn-sm btn-secondary text-decoration-none" href="{% url 'update-profile' %}">Update Profile</a></p>
+                            
+                        </div>
+                        <div class="px-1">
+                            <p class="small text-muted mb-1"><a class="btn btn-sm btn-secondary text-decoration-none" href="{% url 'friend-requests' %}"><i class="fs-6 bi-bell"></i></a></p>
+                            <p class="small text-muted mb-1"><a class="btn btn-sm btn-secondary text-decoration-none" href="{% url 'posts-commented' %}"><i class="fs-6 bi-chat-left-text"></i></a></p>
+
+                        </div>
+                        <div class="px-1">
+                            <p class="small text-muted mb-1"><a class="btn btn-sm btn-secondary text-decoration-none" href="{% url 'pending-friend-requests' %}"><i class="fs-6 bi-send"></i></a></p>
+                        </div>
+                        <div class="px-1">
+                            <p class="small text-muted mb-1"><a class="btn btn-sm btn-secondary text-decoration-none" href="{% url 'posts-liked' %}"><i class="fs-6 bi-hand-thumbs-up"></i></a></p>
+                            
+                        </div>
                     </div>
-                    <div class="px-3">
-                        <p class="small text-muted mb-1">Followers</p>
-                        <p class="mb-0">100k</p>
-                    </div>
-                    <div>
-                        <p class="small text-muted mb-1">Following</p>
-                        <p class="mb-0">10k</p>
-                    </div>
-                    </div>
-                    <div class="d-flex pt-1">
-                    <button type="button" class="btn btn-dark me-1 flex-grow-1">Message</button>
-                    <button type="button" class="btn btn-dark flex-grow-1">Follow</button>
-                    </div>
-                    <br>
-                    <a class="btn btn-info" href="{% url 'update-profile' %}">Edit Profile</a>
-                    
                 </div>
                 </div>
             </div>
@@ -47,6 +55,16 @@
         </div>
         </div>
     </div>
+    <!-- <div class="container">
+        {% for request in friend_requests %}
+            Accept from: <a href="{% url 'accept' request.id%}"> {{ request.sender }}</a>
+            Decline from: <a href="{% url 'decline' request.id%}"> {{ request.sender }}</a>
+        {% endfor %}
+
+        {% for user in current_users %}
+            Add friend: <a href="{% url 'add-friend' user.id%}"> {{ user }}</a>
+        {% endfor %}
+    </div> -->
     <div class="container">
         {% if not_exists %}
             <h4>You have no current Posts! </h4>
@@ -57,8 +75,8 @@
                         {% for each in user_posts %}
                             {% if user_posts %}
                                 <div class="col-4">
-                                    <div class="card border-info md-4"style="max-width: 30rem; min-width: 25rem;">
-                                        <div class="card-header"style="background-color: rgba(13, 202, 240, 0.1)">
+                                    <div class="card border-info md-4 my-3 overflow-auto"style="max-width: 30rem; min-width: 25rem; max-height: 30rem;">
+                                        <div class="card-header"style="background-color: rgba(13, 202, 240, 0.3)">
                                             <div class="row justify-content-end">
                                                     <div class="col-3"><a href="{% url 'update-post' each.id %}" class="btn btn-sm btn-info">Edit Post</a></div>
                                                     <div class="col-4"><a href="{% url 'delete-post' each.id %}" class="btn btn-sm btn-danger">Delete Post</a></div>
@@ -68,12 +86,19 @@
                                             <h2>{{ each }}</h2>
                                             
                                         </div>                      
-                                        <div class="card-body">
+                                        <div class="card-body" style="background-color:#1D1F20; color:white;">
                                             <h7>{{ each.body|default_if_none:"" }}</h7> <br><br>
                                             <h5>{{ each.hashtags|default_if_none:"" }}</h5>
                                             {% if each.image|default_if_none:"" %}
-                                                <img src="{{ each.image.url }}" class="card-img-bottom">
+                                                <img src="{{ each.image.url }}" class="card-img-bottom" >
                                             {% endif%}
+                                        </div>
+                                        <div class="card-footer" style="background-color: rgba(13, 202, 240, 0.3)">
+                                            <div class="col-4">
+                                                <p class="small text-muted mb-2">{{ each.likes.count }} Likes </p>
+                                                <p class="small text-muted mb-2">{{ each.comments.count }} Comments  </p>
+                                            </div>
+                                            <a href="{% url 'post-details' each.id %}" class="btn btn-sm btn-secondary md-4"> View details</a>
                                         </div>
                                     </div>
                                 </div>
@@ -82,11 +107,8 @@
                     </div>
                 </div>
     {% endif %}
-    {% if cu_post %}
-        <h4>You have no current Posts! </h4>
-    {% endif %}
-    
 
-</div>
+
+
 </section>    
 {% endblock content%}

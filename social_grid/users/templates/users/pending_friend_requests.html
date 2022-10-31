@@ -1,0 +1,49 @@
+{% extends 'base/base.html'%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<section class="vh-100">
+    {% if sent_exists%}
+        {% for request in sent_friend_requests %}
+            <div class="container-fluid">
+                <div class="row justify-content-center align-items-center h-100">
+                    <div class="col col-md-9 col-md-7 col-xl-5">
+                        <div class="card my-3" style="border-radius: 15px;">
+                            <div class="card-body p-4">
+                                <div class="d-flex text-black">
+                                    <div class="flex-shrink-0">
+                                        <img src="{{ request.reciever.account.image.url }}"
+                                        alt="Generic placeholder image" class="img-fluid"
+                                        style="width: 180px; border-radius: 10px;">
+                                    </div>
+                                    <div class="flex-grow-1 ms-4">
+                                        <h5 class="mb-1">{{ request.reciever.first_name }} {{ request.reciever.last_name }}</h5>
+                                        <h6><a href="{% url 'user-profile' request.reciever request.reciever.id %}" class="btn btn-secondary">View Profile: {{ request.reciever }}</a></h6>
+                                        <a class="btn btn-danger" href="{% url 'decline' request.id %}"> Cancel </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="container-fluid">
+            <div class="row justify-content-center align-items-center h-100">
+                <div class="col col-md-9 col-md-7 col-xl-5">
+                    <div class="card my-3" style="border-radius: 15px;">
+                        <div class="card-body p-4">
+                            <div class="d-flex text-black">
+                                <div class="flex-shrink-0">
+                                    <h1>No pending friend requests!</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</section>
+{% endblock content %}

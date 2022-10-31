@@ -1,0 +1,122 @@
+{% extends 'base/base.html'%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% if friend_of_user %}
+    <section class="vh-100 ">
+        <div class="container-fluid">
+            <div class="row justify-content-center align-items-center h-100">
+            <div class="col col-md-9 col-md-7 col-xl-5">
+                <div class="card my-3" style="border-radius: 15px;">
+                <div class="card-body p-4">
+                    <div class="d-flex text-black">
+                    <div class="flex-shrink-0">
+                        <img src="{{ user.account.image.url }}"
+                        alt="Generic placeholder image" class="img-fluid"
+                        style="width: 180px; border-radius: 10px;">
+                    </div>
+                    <div class="flex-grow-1 ms-4">
+                        <h5 class="mb-1">{{ user.first_name }} {{ user.last_name }}</h5> <h6>{{ user.username }}</h6>
+                        <p class="mb-2 pb-1" style="color: #2b2a2a;">Email: {{ user.email|default_if_none:"" }}</p>
+                        <p class="mb-2 pb-1" style="color: #2b2a2a;">Bio: {{ user.account.bio|default_if_none:"" }}</p>
+                        <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
+                        style="background-color: #efefef;">
+                        <div>
+                            <p class="small text-muted mb-1">Posts</p>
+                            <p class="mb-0">{{ post_cnt }}</p>
+                        </div>
+                        <div class="px-3">
+                            <p class="small text-muted mb-1">Friends</p>
+                            <p class="mb-0">{{ friend_cnt }}</p>
+                        </div>
+                        </div>
+                        <div class="d-flex pt-1">
+                            {% if friend_of_user %}
+                                <a class="btn btn-secondary" href="#">Friends</a>
+                            {% else %}
+                                <a class="btn btn-info" href="{% url 'add-friend' user.id %}">Request Friend</a>
+                            {% endif %}
+                        </div>
+                        
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        <br>
+    
+        <div class="container">
+            <div class="row">
+                {% for post in posts %}
+                        <div class="col-4">
+                            <div class="card border-info md-4 overflow-auto"style="max-width: 30rem; min-width: 25rem; max-height: 30rem;">
+                                <div class="card-header"style="background-color: rgba(13, 202, 240, 0.1)">
+                                    <h6 class="card-subtitle mb-2 text-muted"> <br>{{ post.date_created|date:"F j, Y" }}</h6>
+                                    <h6>{{ post.account }}</h6>
+                                    <h2>{{ post }}</h2>
+                                    
+                                </div>                      
+                                <div class="card-body">
+                                    <h7>{{ post.body|default_if_none:"" }}</h7> <br><br>
+                                    <h5>{{ post.hashtags|default_if_none:"" }}</h5>
+                                    {% if post.image|default_if_none:"" %}
+                                        <img src="{{ post.image.url }}" class="card-img-bottom">
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+    <section class="vh-100 ">
+        <div class="container-fluid">
+            <div class="row justify-content-center align-items-center h-100">
+            <div class="col col-md-9 col-md-7 col-xl-5">
+                <div class="card my-3" style="border-radius: 15px;">
+                <div class="card-body p-4">
+                    <div class="d-flex text-black">
+                    <div class="flex-shrink-0">
+                        <img src="{{ user.account.image.url }}"
+                        alt="Generic placeholder image" class="img-fluid"
+                        style="width: 180px; border-radius: 10px;">
+                        
+                    </div>
+                    <div class="flex-grow-1 ms-4">
+                        <h5 class="mb-1">{{ user.first_name }} {{ user.last_name }}</h5> <h6>{{ user.username }}</h6>
+                        <h5 style="color:maroon;"> Private </h5>
+                        <p class="mb-2 pb-1" style="color: #2b2a2a;">Email: {{ user.email|default_if_none:"" }}</p>
+                        <p class="mb-2 pb-1" style="color: #2b2a2a;">Bio: {{ user.account.bio|default_if_none:"" }}</p>
+                        <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
+                        style="background-color: #efefef;">
+                        <div>
+                            <p class="small text-muted mb-1">Posts</p>
+                            <p class="mb-0">{{ post_cnt }}</p>
+                        </div>
+                        <div class="px-3">
+                            <p class="small text-muted mb-1">Friends</p>
+                            <p class="mb-0">{{ friend_cnt }}</p>
+                        </div>
+                        </div>
+                        <div class="d-flex pt-1">
+                            {% if friend_of_user %}
+                                <a class="btn btn-secondary" href="#">Friends</a>
+                            {% else %}
+                                <a class="btn btn-info" href="{% url 'add-friend' user.id %}">Request Friend</a>
+                            {% endif %}
+                        </div>
+                        
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        <br>
+    {% endif %}
+
+</section>    
+{% endblock content%}
