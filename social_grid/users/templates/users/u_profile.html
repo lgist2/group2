@@ -32,7 +32,12 @@
                         </div>
                         <div class="d-flex pt-1">
                             {% if friend_of_user %}
+                            <div class="d-flex pt-1 me-2">
                                 <a class="btn btn-secondary" href="#">Friends</a>
+                            </div>
+                            <div class="d-flex pt-1 me-2">
+                                <a class="btn btn-danger" href="{% url 'remove-friend' user.id %}">Unfriend</a>
+                            </div>
                             {% else %}
                                 <a class="btn btn-info" href="{% url 'add-friend' user.id %}">Request Friend</a>
                             {% endif %}

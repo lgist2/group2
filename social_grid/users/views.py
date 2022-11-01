@@ -6,9 +6,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth import update_session_auth_hash
 
 from .models import Account, FriendRequest
+from post.models import SharePost
 from .forms import UserRegisterForm, UserUpdateForm, AccountUpdateForm
 from django.contrib.auth.decorators import login_required
-from post.models import Post
+from post.models import Post, RePost
 
 
 def registration(request):   
@@ -39,6 +40,7 @@ def profile(request):
     active_account.account = request.user
     current_posts = Post.objects.all()
     user_posts = Post.objects.filter(account=active_account.account).order_by("-id")
+    reposts = RePost.objects.filter(new=active_account.account).order_by("-id")
     post_cnt = Post.objects.filter(account=active_account.account).count
     friend_cnt = Account.objects.filter(friends=active_account.account).exclude(user=active_account.account).count
     friend_requests = FriendRequest.objects.filter(reciever=request.user)
@@ -54,6 +56,7 @@ def profile(request):
                 'friend_requests' : friend_requests,
                 'current_users' : current_users,
                 'friend_cnt' : friend_cnt,
+                'reposts' : reposts,
                 })
             else:
                 return render(request, 'users/profile.html', {'user_posts' : user_posts,
@@ -62,6 +65,7 @@ def profile(request):
                 'friend_requests' : friend_requests,
                 'current_users' : current_users,
                 'friend_cnt' : friend_cnt,
+                'reposts' : reposts,
                 })
     else:
         not_exists = True
@@ -148,17 +152,28 @@ def decline_request(request, u_id):
     messages.success(request, 'Friend request Declined!')
     return redirect('friend-requests')
 
+@login_required
+def remove_friend(request, u_id):
+    unactive_user = Account.objects.get(user=u_id)
+    active_user = request.user
+    active_user.account.friends.remove(u_id)
+    unactive_user.friends.remove(active_user)
+    messages.success(request, 'Friend removed!')
+    return redirect('profile')
+
 
 @login_required
-def friend_requests(request):
+def notifications(request):
     exists = True
     friend_requests = FriendRequest.objects.filter(reciever=request.user)
+    friends = Account.objects.filter(friends=request.user)
+    posts_shared = SharePost.objects.filter(reciever=request.user)
     current_users = User.objects.exclude(username=request.user)
-    if friend_requests.exists():
-        return render(request,'users/friend_requests.html', {'friend_requests' : friend_requests, 'exists' : exists})
+    if friend_requests.exists() or posts_shared.exists():
+        return render(request,'users/friend_requests.html', {'friend_requests' : friend_requests,'posts_shared': posts_shared, 'exists' : exists})
     else:
         exists = False
-        return render(request,'users/friend_requests.html', {'friend_requests' : friend_requests, 'exists' : exists})
+        return render(request,'users/friend_requests.html', {'friend_requests' : friend_requests,'posts_shared': posts_shared, 'exists' : exists})
 
 @login_required
 def pending_friend_requests(request):
@@ -192,6 +207,17 @@ def all_suggestions(request):
     else:
         has_friends = False
         return render(request,'users/all_suggestions.html', {'not_friends' : not_friends, 'has_friends' : has_friends})
+
+@login_required
+def reposts(request):
+    has_reposts = True
+    active_user = request.user
+    reposts = RePost.objects.filter(new=active_user).order_by('-id')
+    if reposts.exists():
+        return render(request,'users/reposts.html', {'reposts' : reposts, 'has_reposts' : has_reposts})
+    else:
+        has_reposts = False
+        return render(request,'users/reposts.html', {'reposts' : reposts, 'has_reposts' : has_reposts})
 
 
 

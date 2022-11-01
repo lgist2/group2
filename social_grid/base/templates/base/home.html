@@ -39,6 +39,9 @@
                     <li>
                         <h7><a class="nav-link align-middle px-0" href="{% url 'posts-commented' %}" style="color:#0dcaf0;"><i class="fs-4 bi-chat-left-text"></i> Comments</a></h7>
                     </li>
+                    <li>
+                        <h7><a class="nav-link align-middle px-0" href="{% url 'reposts' %}" style="color:#0dcaf0;"><i class="fs-4 bi-repeat"></i> Reposts</a></h7>
+                    </li>
                 </ul>
                 
             </div>
@@ -71,6 +74,8 @@
                                             <a class="col-12 px-2" href="{% url 'like-post' post.account post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-hand-thumbs-up"></i></a>
                                             <a class="col-12 px-2" href="{% url 'unlike-post' post.account post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-hand-thumbs-down"></i></a>
                                             <a class="col-12 px-2" href="{% url 'comment-post' post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-chat-left-text"></i></a>
+                                            <a class="col-12 px-2" href="{% url 'share-post-to' post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-share"></i></a>
+                                            <a class="col-12 px-2" href="{% url 'repost' post.id post.account.id %}" style="color:#1D1F20;"><i class="fs-4 bi-repeat"></i></a>
                                             <a href="{% url 'post-details' post.id %}" class="btn btn-sm btn-secondary md-4"> View details</a>
                                     </div>
                                 </div>
@@ -78,6 +83,42 @@
                         </div>
                 
                 {% endfor %}
+                {% if reposts %}
+            {% for repost in reposts %}
+                    <div class="row justify-content-center align-items-center h-100">
+                            <div class="col-8"><br><br>
+                                <div class="card border-info md-4"style="width: 650px;">
+                                    <div class="card-header"style="background-color: rgba(13, 202, 240, 0.3)">
+                                        <h7><a href="{% url 'user-profile' repost.new repost.new.id %}" class="btn btn-sm btn-outline-secondary">@{{ repost.new }}</a> reposted on {{ repost.timestamp|date:"F j, Y"}}</h7>
+                                        <h6 class="card-subtitle mb-2 text-muted"> <br>{{ repost.post.date_created|date:"F j, Y" }}</h6>
+                                        <h6><a href="{% url 'user-profile' repost.original repost.original.id %}" class="btn btn-outline-secondary">@{{ repost.original }}</a></h6>
+                                        <h2>{{ repost.post }}</h2>
+                                    </div>
+                                    <div class="card-body" style="background-color:#1D1F20; color:white;">
+                                        <h7>{{ repost.post.body|default_if_none:"" }}</h7> <br><br>
+                                        <h5>{{ repost.post.hashtags|default_if_none:"" }}</h5>
+                                        {% if repost.post.image|default_if_none:"" %}
+                                            <center><img src="{{ repost.post.image.url }}" class="img-fluid card-img-bottom" style="width: 500px; border-radius: 10px;"></center>
+                                        {% endif%}
+                                    </div>
+                                    <div class="card-footer" style="background-color: rgba(13, 202, 240, 0.3)">
+                                        <div class="col-4">
+                                            <p class="small text-muted mb-2">{{ repost.post.likes.count }} Likes </p>
+                                            <p class="small text-muted mb-2">{{ repost.post.comments.count }} Comments</p>
+                                        </div>
+                                            <a class="col-12 px-2" href="{% url 'like-post' repost.original repost.post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-hand-thumbs-up"></i></a>
+                                            <a class="col-12 px-2" href="{% url 'unlike-post' repost.original repost.post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-hand-thumbs-down"></i></a>
+                                            <a class="col-12 px-2" href="{% url 'comment-post' repost.post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-chat-left-text"></i></a>
+                                            <a class="col-12 px-2" href="{% url 'share-post-to' repost.post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-share"></i></a>
+                                            <a class="col-12 px-2" href="{% url 'repost' repost.post.id repost.original.id %}" style="color:#1D1F20;"><i class="fs-4 bi-repeat"></i></a>
+                                            <a href="{% url 'post-details' repost.id %}" class="btn btn-sm btn-secondary md-4"> View details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                
+                {% endfor %}
+                {%endif%}
             {% else %}
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col col-md-8 my-4">
@@ -98,6 +139,7 @@
                         </div>
                       </div>
                     </div>
+            
             {%endif%}
         
             </section>

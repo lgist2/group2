@@ -32,6 +32,33 @@
                     </div>
                 </div>
             {% endfor %}
+
+            {% for post in posts_shared %}
+                <div class="container-fluid">
+                    <div class="row justify-content-center align-items-center h-100">
+                        <div class="col col-md-9 col-md-7 col-xl-5">
+                            <div class="card my-3" style="border-radius: 15px;">
+                                <div class="card-body p-4">
+                                    <div class="d-flex text-black">
+                                        <div class="flex-shrink-0">
+                                            <img src="{{ post.sender.account.image.url }}"
+                                            alt="Generic placeholder image" class="img-fluid"
+                                            style="width: 180px; border-radius: 10px;">
+                                        </div>
+                                        <div class="flex-grow-1 ms-4">
+                                            <h5 class="mb-1">{{ post.sender.first_name }} {{ post.sender.last_name }}</h5> 
+                                            <h6><a href="{% url 'user-profile' post.sender post.sender.id %}" class="btn btn-secondary">{{ post.sender }}
+                                            </a>  Shared a post with you from <a href="{% url 'user-profile' post.sender post.sender.id %}" class="btn btn-secondary"></a> </h6>
+                                            <a class="btn btn-success" href="{% url 'post-details' post.post.id %}"> View</a>
+                                            <a class="btn btn-danger" href="{% url 'delete-shared-post' post.id %}"> Delete </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         {% else %}
                 <div class="container-fluid">
                     <div class="row justify-content-center align-items-center h-100">

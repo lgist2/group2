@@ -1,0 +1,63 @@
+{% extends 'base/base.html'%}
+{% load static %}
+
+{% block content%}
+ 
+    <section class="container-fluid">
+        <div class="container">
+            <div class="row">
+                {% if has_reposts %}
+                <center><h3 style="color:white;">Your Reposts:</h3></center>
+                
+                {% for repost in reposts %}
+                
+                        <div class="col-4"><br><br>
+                            <div class="card border-info md-4 overflow-auto"style="max-width: 500px;">
+                                <div class="card-header"style="background-color: rgba(13, 202, 240, 0.3)">
+                                    <h7><a href="{% url 'user-profile' repost.new repost.new.id %}" class="btn btn-sm btn-outline-secondary">@{{ repost.new }}</a> reposted on {{ repost.timestamp|date:"F j, Y"}}</h7>
+                                    <h6 class="card-subtitle mb-2 text-muted"> <br>{{ repost.post.date_created|date:"F j, Y" }}</h6>
+                                    <h6><a href="{% url 'user-profile' repost.original repost.original.id %}" class="btn btn-outline-secondary">@{{ repost.original }}</a></h6>
+                                    <h2>{{ repost.post }}</h2>
+                                </div>
+                                <div class="card-body" style="background-color:#1D1F20; color:white;">
+                                    <h7>{{ repost.post.body|default_if_none:"" }}</h7> <br><br>
+                                    <h5>{{ repost.post.hashtags|default_if_none:"" }}</h5>
+                                    {% if repost.post.image|default_if_none:"" %}
+                                        <center><img src="{{ repost.post.image.url }}" class="img-fluid card-img-bottom" style="width: 500px; border-radius: 10px;"></center>
+                                    {% endif%}
+                                </div>
+                                <div class="card-footer" style="background-color: rgba(13, 202, 240, 0.3)">
+                                    <div class="col-4">
+                                        <p class="small text-muted mb-2">{{ repost.post.likes.count }} Likes </p>
+                                        <p class="small text-muted mb-2">{{ repost.post.comments.count }} Comments</p>
+                                    </div>
+                                        <a class="col-12 px-2" href="{% url 'like-post' repost.original repost.post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-hand-thumbs-up"></i></a>
+                                        <a class="col-12 px-2" href="{% url 'unlike-post' repost.original repost.post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-hand-thumbs-down"></i></a>
+                                        <a class="col-12 px-2" href="{% url 'comment-post' repost.post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-chat-left-text"></i></a>
+                                        <a class="col-12 px-2" href="{% url 'share-post-to' repost.post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-share"></i></a>
+                                        <a class="col-12 px-2" href="{% url 'repost' repost.post.id repost.original.id %}" style="color:#1D1F20;"><i class="fs-4 bi-repeat"></i></a>
+                                        <a href="{% url 'post-details' repost.id %}" class="btn btn-sm btn-secondary md-4"> View details</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    
+            {% endfor %}
+            
+                {%else%}
+                <div class="container-fluid">
+                    <div class="row justify-content-center align-items-center h-100">
+                        <div class="col col-md-9 col-md-7 col-xl-5">
+                            <div class="card my-3" style="border-radius: 15px;">
+                                <div class="card-body p-4">
+                                    <center><h3>If you have friends, why aren't you liking their posts? If not, go make some!</h3></center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{% endblock content %}
