@@ -159,7 +159,7 @@ def repost(request, p_id, u_id):
     new = request.user
     original = User.objects.get(pk=u_id)
     RePost.objects.get_or_create(post=post, new=new, original=original)
-    return redirect('profile')
+    return redirect('reposts')
 
 
     

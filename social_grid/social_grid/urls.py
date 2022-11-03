@@ -61,7 +61,7 @@ urlpatterns = [
     path('remove-friend//?=<str:u_id>', user_views.remove_friend, name='remove-friend'),
     path('accept/<str:u_id>/', user_views.accept_request, name='accept'),
     path('decline/<str:u_id>/', user_views.decline_request, name='decline'),
-    path('profile/friend-requests', user_views.notifications, name='friend-requests'),
+    path('profile/notifications', user_views.notifications, name='friend-requests'),
     path('profile/pending-friend-requests', user_views.pending_friend_requests, name='pending-friend-requests'),
     path('all-friends/', user_views.all_friends, name='all-friends'),
     path('all-suggestions/', user_views.all_suggestions, name='all-suggestions'),
