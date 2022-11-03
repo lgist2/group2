@@ -164,25 +164,22 @@ def remove_friend(request, u_id):
 
 @login_required
 def notifications(request):
-    exists = True
+    exists = False
     private = True
     friend_requests = FriendRequest.objects.filter(reciever=request.user)
-    friends = Account.objects.filter(friends=request.user)
     posts_shared = SharePost.objects.filter(reciever=request.user)
     current_users = User.objects.exclude(username=request.user)
-    
     context = {
         'friend_requests' : friend_requests,
         'posts_shared': posts_shared,
         'exists' : exists, 
         'private' : private,
-        'friends' : friends,
     }
     if friend_requests.exists() or posts_shared.exists():
-        return render(request,'users/friend_requests.html', context)
+        exists = True
+        return render(request,'users/notifications.html', context)
     else:
-        exists = False
-        return render(request,'users/friend_requests.html', context)
+        return render(request,'users/notifications.html', context)
 
 @login_required
 def pending_friend_requests(request):

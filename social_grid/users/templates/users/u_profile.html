@@ -31,16 +31,19 @@
                         </div>
                         </div>
                         <div class="d-flex pt-1">
-                            {% if friend_of_user %}
+                            {% if user == request.user %}
+                            <div class="d-flex pt-1 me-2">
+                                <a class="btn btn-secondary" href="{% url 'profile' %}">Profile</a>
+                            </div>
+                            {% else %}
                             <div class="d-flex pt-1 me-2">
                                 <a class="btn btn-secondary" href="#">Friends</a>
                             </div>
                             <div class="d-flex pt-1 me-2">
                                 <a class="btn btn-danger" href="{% url 'remove-friend' user.id %}">Unfriend</a>
                             </div>
-                            {% else %}
-                                <a class="btn btn-info" href="{% url 'add-friend' user.id %}">Request Friend</a>
                             {% endif %}
+                            
                         </div>
                         
                     </div>
@@ -106,11 +109,7 @@
                         </div>
                         </div>
                         <div class="d-flex pt-1">
-                            {% if friend_of_user %}
-                                <a class="btn btn-secondary" href="#">Friends</a>
-                            {% else %}
-                                <a class="btn btn-info" href="{% url 'add-friend' user.id %}">Request Friend</a>
-                            {% endif %}
+                            <a class="btn btn-info" href="{% url 'add-friend' user.id %}">Request Friend</a>
                         </div>
                         
                     </div>
