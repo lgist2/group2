@@ -151,7 +151,7 @@
                     <div class="flex-column flex-coloumn align-items-end px-1 pt-2 text-white sticky-top">
                         <br><br><br>
                         
-                        <ul class="nav nav-pills overflow-auto" id="menu">
+                        <ul class="nav nav-pills" id="menu">
                             <li>
                                     <h5>Friends</h5>
                                     <a class="nav-link " href="{% url 'all-friends' %}" style="color:#0dcaf0;"><i class="fs-4 bi-person-check"></i></a>
@@ -159,7 +159,7 @@
                                         {% for friend in friends %}
                                                 <div class="row">
                                                     <div class="col pb-2">
-                                                        <h7><a href="{% url 'user-profile' friend friend.id %}" class="btn btn-sm btn-outline-secondary">@{{ friend }}</a></h7>
+                                                        <h7><a href="{% url 'user-profile' friend friend.id %}" class="btn btn-sm btn-outline-secondary">@{{ friend.user.username }}</a></h7>
                                                         <hr>
                                                     </div>
                                                 </div>
@@ -174,7 +174,7 @@
                                         {% for friend in not_friends %}
                                                     
                                            <div class="col pb-6">
-                                                <h7><a href="{% url 'user-profile' friend friend.id %}" class="btn btn-sm btn-outline-secondary">@{{ friend }}</a></h7>
+                                                <h7><a href="{% url 'user-profile' friend friend.id %}" class="btn btn-sm btn-outline-secondary">@{{ friend.user.username }}</a></h7>
                                                 <hr>
                                             </div>
                                                     
