@@ -35,4 +35,5 @@ jobs:
     
     - name: Run Tests
       run: |
-        python social_grid/env/bin/manage.py test 
+        cd social_grid/env/bin
+        python manage.py test 
