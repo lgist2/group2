@@ -29,5 +29,4 @@ jobs:
     
     - name: Run Tests
       run: |
-        cd group2/social_grid/manage.py
-        python manage.py test 
+        python manager.py test 
