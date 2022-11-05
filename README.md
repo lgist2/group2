@@ -35,7 +35,7 @@
 - [x] Send friend requests
 - [x] Accept friend requests
 - [x] View friends/profiles
-- [ ] Remove friends
+- [x] Remove friends
 
 **Goals:**  
 Allow users to create and manage accounts  
