@@ -23,18 +23,18 @@
 
 **Features:**
 - [x] Create account
-- [ ] Edit account info (change username, profile pic, birthday, etc)
-- [ ] Change account privacy
+- [x] Edit account info (change username, profile pic, birthday, etc)
+- [x] Change account privacy
 - [x] Edit profile (profile picture, public name, bio)
 
 - [x] Create posts
-- [ ] View others' posts
-- [ ] Comment on posts
-- [ ] Delete posts
+- [x] View others' posts
+- [x] Comment on posts
+- [x] Delete posts
 
-- [ ] Send friend requests
-- [ ] Accept friend requests
-- [ ] View friends/profiles
+- [x] Send friend requests
+- [x] Accept friend requests
+- [x] View friends/profiles
 - [ ] Remove friends
 
 **Goals:**  
