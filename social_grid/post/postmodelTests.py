@@ -3,10 +3,11 @@ from django.test import TestCase
 # Create your tests here.
 
 from post.models import Post, Comment
-from social_grid.users.models import Account
+from users.models import Account
 
 class PostModelTestCases(TestCase):
 
+    @classmethod
     def setUpTestData(cls):
         Post.objects.create(title = 'Cool post title', hashtags = 'fyp')
 
@@ -30,6 +31,7 @@ class PostModelTestCases(TestCase):
 
 class CommentModelTestCases(TestCase):
 
+    @classmethod
     def setupTestData(cls):
        
         Comment.objects.create(body = 'Very cool post!', created_on = 10/25/22)
