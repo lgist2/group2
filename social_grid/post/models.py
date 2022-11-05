@@ -36,13 +36,13 @@ class Comment(models.Model):
     
 class SharePost(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='post_sender')
-    reciever = models.ForeignKey(User, on_delete=models.CASCADE, related_name='post_reciever')
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='post_receiver')
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_shared')
     is_active = models.BooleanField(blank=True, null=False, default=True)
     timestamp = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return f'{self.sender.username} shared {self.post.title} to {self.reciever.username}'
+        return f'{self.sender.username} shared {self.post.title} to {self.receiver.username}'
 
 
 class RePost(models.Model):

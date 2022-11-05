@@ -129,10 +129,10 @@ def share_post_to(request, p_id):
 @login_required
 def share_post(request, u_id, p_id):
     sender = request.user
-    reciever = User.objects.get(pk=u_id)
+    receiver = User.objects.get(pk=u_id)
     post = Post.objects.get(pk=p_id)
     messages.success(request, 'Post Shared!')
-    SharePost.objects.get_or_create(sender=sender, reciever=reciever, post=post)
+    SharePost.objects.get_or_create(sender=sender, receiver=receiver, post=post)
     return redirect('profile')
 
 @login_required
@@ -145,7 +145,7 @@ def delete_shared_post(request, u_id):
 @login_required
 def shared_posts(request):
     exists = True
-    posts = SharePost.objects.filter(reciever=request.user)
+    posts = SharePost.objects.filter(receiver=request.user)
     current_users = User.objects.exclude(username=request.user)
     if posts.exists():
         return render(request,'users/friend_requests.html', {'posts' : posts, 'exists' : exists})

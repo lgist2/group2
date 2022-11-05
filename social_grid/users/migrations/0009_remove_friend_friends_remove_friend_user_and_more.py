@@ -28,8 +28,8 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='friend',
-            name='reciever',
-            field=models.ForeignKey(blank=True, default=1, on_delete=django.db.models.deletion.CASCADE, related_name='reciever', to='users.account'),
+            name='receiver',
+            field=models.ForeignKey(blank=True, default=1, on_delete=django.db.models.deletion.CASCADE, related_name='receiver', to='users.account'),
             preserve_default=False,
         ),
         migrations.AddField(

@@ -43,7 +43,7 @@ def profile(request):
     reposts = RePost.objects.filter(new=active_account.account).order_by("-id")
     post_cnt = Post.objects.filter(account=active_account.account).count
     friend_cnt = Account.objects.filter(friends=active_account.account).exclude(user=active_account.account).count
-    friend_requests = FriendRequest.objects.filter(reciever=request.user)
+    friend_requests = FriendRequest.objects.filter(receiver=request.user)
     current_users = User.objects.exclude(username=request.user)
     #followers = Account.objects.filter(followers=active_account.account).count
     #followings = Account.objects.filter(followings=active_account.account).count
@@ -129,9 +129,9 @@ def u_profile(request, username, u_id):
 @login_required
 def send_friend_request(request, u_id):
     sender = request.user
-    reciever = User.objects.get(pk=u_id)
+    receiver = User.objects.get(pk=u_id)
     messages.success(request, 'Friend request sent!')
-    FriendRequest.objects.get_or_create(sender=sender, reciever=reciever)
+    FriendRequest.objects.get_or_create(sender=sender, receiver=receiver)
     return redirect('profile')
 
 @login_required
@@ -166,8 +166,8 @@ def remove_friend(request, u_id):
 def notifications(request):
     exists = False
     private = True
-    friend_requests = FriendRequest.objects.filter(reciever=request.user)
-    posts_shared = SharePost.objects.filter(reciever=request.user)
+    friend_requests = FriendRequest.objects.filter(receiver=request.user)
+    posts_shared = SharePost.objects.filter(receiver=request.user)
     current_users = User.objects.exclude(username=request.user)
     context = {
         'friend_requests' : friend_requests,

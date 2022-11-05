@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('is_active', models.BooleanField(blank=True, default=True)),
                 ('timestamp', models.DateTimeField(default=django.utils.timezone.now)),
                 ('post', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='post_shared', to='post.post')),
-                ('reciever', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='post_reciever', to=settings.AUTH_USER_MODEL)),
+                ('receiver', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='post_receiver', to=settings.AUTH_USER_MODEL)),
                 ('sender', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='post_sender', to=settings.AUTH_USER_MODEL)),
             ],
         ),

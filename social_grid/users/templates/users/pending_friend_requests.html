@@ -12,13 +12,13 @@
                             <div class="card-body p-4">
                                 <div class="d-flex text-black">
                                     <div class="flex-shrink-0">
-                                        <img src="{{ request.reciever.account.image.url }}"
+                                        <img src="{{ request.receiver.account.image.url }}"
                                         alt="Generic placeholder image" class="img-fluid"
                                         style="width: 180px; border-radius: 10px;">
                                     </div>
                                     <div class="flex-grow-1 ms-4">
-                                        <h5 class="mb-1">{{ request.reciever.first_name }} {{ request.reciever.last_name }}</h5>
-                                        <h6><a href="{% url 'user-profile' request.reciever request.reciever.id %}" class="btn btn-secondary">View Profile: {{ request.reciever }}</a></h6>
+                                        <h5 class="mb-1">{{ request.receiver.first_name }} {{ request.receiver.last_name }}</h5>
+                                        <h6><a href="{% url 'user-profile' request.receiver request.receiver.id %}" class="btn btn-secondary">View Profile: {{ request.receiver }}</a></h6>
                                         <a class="btn btn-danger" href="{% url 'decline' request.id %}"> Cancel </a>
                                     </div>
                                 </div>
