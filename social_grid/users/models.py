@@ -34,7 +34,7 @@ class Account(models.Model):
 class FriendRequest(models.Model):
     #friend request consists of sender and reciever
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender')
-    reciever = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reciever')
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='receiver')
     is_active = models.BooleanField(blank=True, null=False, default=True)
     timestamp = models.DateTimeField(default=timezone.now)
 
