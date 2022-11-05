@@ -169,17 +169,21 @@ def notifications(request):
     friend_requests = FriendRequest.objects.filter(receiver=request.user)
     posts_shared = SharePost.objects.filter(receiver=request.user)
     current_users = User.objects.exclude(username=request.user)
-    context = {
+    if friend_requests.exists() or posts_shared.exists():
+        exists = True
+        return render(request,'users/notifications.html', {
         'friend_requests' : friend_requests,
         'posts_shared': posts_shared,
         'exists' : exists, 
         'private' : private,
-    }
-    if friend_requests.exists() or posts_shared.exists():
-        exists = True
-        return render(request,'users/notifications.html', context)
+    })
     else:
-        return render(request,'users/notifications.html', context)
+        return render(request,'users/notifications.html', {
+        'friend_requests' : friend_requests,
+        'posts_shared': posts_shared,
+        'exists' : exists, 
+        'private' : private,
+    })
 
 @login_required
 def pending_friend_requests(request):
