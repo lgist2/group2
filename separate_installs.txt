@@ -7,5 +7,5 @@ pip install django-crispy-forms (used to help with form layout)
 pip install django-ckeditor ( used for a text block entry for adding posts)
 pip install Pillow ( used for ability to have profile pictures)
 pip install django-environ (environment variables)
-
+pip install coverage
 
