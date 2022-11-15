@@ -98,13 +98,26 @@ def search_user(request):
     real = False
     if request.method == 'POST':
         search = request.POST['search']
-        users = User.objects.filter(username__contains=search) | User.objects.filter(first_name__contains=search) | User.objects.filter(last_name__contains=search)
+        users = User.objects.filter(username__contains=search) | User.objects.filter(first_name__contains=search) | User.objects.filter(last_name__contains=search) 
         if users.exists():
             real = True
         current_user = request.user
         return render(request, 'users/search_user.html', {'search' : search, 'users' : users, 'current_users' : current_user, 'real' : real,})
     else:
         return render(request, 'users/search_user.html', {'search' : search, 'users' : users, 'current_users' : current_user, 'real' : real,})
+
+@login_required
+def search_post(request):
+    real = False
+    if request.method == 'POST':
+        search = request.POST['search']
+        posts = Post.objects.filter(title__contains=search) | Post.objects.filter(date_created__contains=search)
+        if posts.exists():
+            real = True
+        current_user = request.user
+        return render(request, 'users/search_post.html', {'search' : search, 'posts' : posts, 'current_users' : current_user, 'real' : real,})
+    else:
+        return render(request, 'users/search_post.html', {'search' : search, 'posts' : posts, 'current_users' : current_user, 'real' : real,})
 
 @login_required
 def u_profile(request, username, u_id):
