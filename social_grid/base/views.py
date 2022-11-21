@@ -25,6 +25,7 @@ def home(request):
         'users' : users,
         'not_friends' : not_friends,
         'liked' : liked,
+        'active_user' : active_user,
     }
     return render(request, 'base/home.html', context)
 

@@ -9,6 +9,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, CreateView
 from django.urls import reverse_lazy
+from django.http import JsonResponse
 
 
 def addpost(request):
@@ -47,19 +48,37 @@ def deletepost(request,pk):
 
 def like_post(request, username, p_id):
     post = Post.objects.get(id=p_id)
-    post.likes.add(request.user)
     active_user = request.user
-    active_user.account.posts_liked.add(post)
-    messages.success(request, 'Post liked!')
-    return redirect('post-details', p_id)
+    if request.method == "POST":
+        if active_user in post.likes.all():
+            post.likes.remove(request.user)
+            active_user.account.posts_liked.remove(post)
+            val = 'Unlike'
+        else:
+            post.likes.add(request.user)
+            active_user.account.posts_liked.add(post)
+            val = 'Like'
 
-def unlike_post(request, username, p_id):
+        data = {
+            'value' : val,
+            'likes' : post.likes.all().count()
+        }
+        return JsonResponse(data, safe=False)
+    return redirect('home-page')
+
+""" def unlike_post(request, username, p_id):
     post = Post.objects.get(id=p_id)
-    post.likes.remove(request.user)
     active_user = request.user
-    active_user.account.posts_liked.remove(post)
-    messages.success(request, 'Post unliked!')
-    return redirect('post-details', p_id)
+    if request.method == "POST":
+        post.likes.remove(request.user)
+        active_user.account.posts_liked.remove(post)
+        val = "unlike"
+        data = {
+            'value' : val,
+            'likes' : post.likes.all().count()
+        }
+        return JsonResponse(data, safe=False)
+    return redirect('home-page') """
 
 
 def comment_on_post(request, p_id):

@@ -44,14 +44,14 @@ urlpatterns = [
     path('update-post/<str:pk>/', post_views.updatepost, name='update-post'),
     path('delete-post/<str:pk>/', post_views.deletepost, name='delete-post'),
 
-    path('like-post/?=user=<str:username>/?=post<str:p_id>/', post_views.like_post, name='like-post'),
-    path('unlike-post/?=user=<str:username>/?=post<str:p_id>/', post_views.unlike_post, name='unlike-post'),
+    path('like-post/user=<str:username>/=post<str:p_id>/', post_views.like_post, name='like-post'),
+    #path('unlike-post/?=user=<str:username>=post<str:p_id>/', post_views.like_post, name='unlike-post'),
     path('comment-on-post/?post=<str:p_id>/', post_views.comment_on_post, name='comment-post'),
     path('post-details/?post=<str:p_id>/', post_views.post_details, name='post-details'),
     path('share-post-to/?post=<str:p_id>/', post_views.share_post_to, name='share-post-to'),
-    path('share-post/?user=<str:u_id>/?=post=<str:p_id>/', post_views.share_post, name='share-post'),
+    path('share-post/?user=<str:u_id>/=post=<str:p_id>/', post_views.share_post, name='share-post'),
     path('delete/?<str:u_id>/', post_views.delete_shared_post, name='delete-shared-post'),
-    path('repost/?<str:p_id>/?=<str:u_id>/', post_views.repost, name='repost'),
+    path('repost/?<str:p_id>/=<str:u_id>/', post_views.repost, name='repost'),
     path('post-shared/?post=<str:p_id>/', post_views.shared_posts, name='shared-posts'),
     path('search-post/', user_views.search_post, name='search-post'),
 

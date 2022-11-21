@@ -68,11 +68,18 @@
                                     </div>
                                     <div class="card-footer" style="background-color: rgba(13, 202, 240, 0.3)">
                                         <div class="col-4">
-                                            <p class="small text-muted mb-2">{{ post.likes.count }} Likes </p>
+                                            <p class="small text-muted mb-2 like-cnt{{post.id}}">{{ post.likes.count }} Likes </p>
                                             <p class="small text-muted mb-2">{{ post.comments.count }} Comments  </p>
                                         </div>
-                                            <a class="col-12 px-2" href="{% url 'like-post' post.account post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-hand-thumbs-up"></i></a>
-                                            <a class="col-12 px-2" href="{% url 'unlike-post' post.account post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-hand-thumbs-down"></i></a>
+                                            <form method="POST" action="{% url 'like-post' post.account post.id %}" class="like-form" id="{{post.id}}">
+                                                {% csrf_token %}
+                                                {% if active_user not in post.likes.all %}
+                                                        <button class="btn btn-sm btn-secondary md-4 like-btn{{post.id}}">Like</button>  
+                                                {% else %}
+                                                        <button class="btn btn-sm btn-secondary md-4 like-btn{{post.id}}">Unlike</button>       
+                                                {% endif %}
+                                            </form>
+                                            <br><br><br><br>
                                             <a class="col-12 px-2" href="{% url 'comment-post' post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-chat-left-text"></i></a>
                                             <a class="col-12 px-2" href="{% url 'share-post-to' post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-share"></i></a>
                                             <a class="col-12 px-2" href="{% url 'repost' post.id post.account.id %}" style="color:#1D1F20;"><i class="fs-4 bi-repeat"></i></a>
@@ -106,8 +113,11 @@
                                             <p class="small text-muted mb-2">{{ repost.post.likes.count }} Likes </p>
                                             <p class="small text-muted mb-2">{{ repost.post.comments.count }} Comments</p>
                                         </div>
+                                        {% if active_user not in repost.post.likes.all %}
                                             <a class="col-12 px-2" href="{% url 'like-post' repost.original repost.post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-hand-thumbs-up"></i></a>
-                                            <a class="col-12 px-2" href="{% url 'unlike-post' repost.original repost.post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-hand-thumbs-down"></i></a>
+                                        {% else %}
+                                            <a class="col-12 px-2" href="{% url 'like-post' repost.original repost.post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-hand-thumbs-down"></i></a>
+                                        {% endif %}
                                             <a class="col-12 px-2" href="{% url 'comment-post' repost.post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-chat-left-text"></i></a>
                                             <a class="col-12 px-2" href="{% url 'share-post-to' repost.post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-share"></i></a>
                                             <a class="col-12 px-2" href="{% url 'repost' repost.post.id repost.original.id %}" style="color:#1D1F20;"><i class="fs-4 bi-repeat"></i></a>
@@ -221,3 +231,53 @@
 
 
 {% endblock content %}
+
+{% block scripts %}
+    <script>
+        $( document ).ready(function() {
+            $('.like-form').submit(function(e){
+                e.preventDefault()
+                
+                const post_id = $(this).attr('id')
+                
+                const likeText = $(`.like-btn${post_id}`).text()
+                const trim = $.trim(likeText)
+                
+                
+                const url = $(this).attr('action')
+                
+                let res;
+                const likes = $(`.like-cnt${post_id}`).text()
+                const trim_cnt = parseInt(likes)
+                
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {
+                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                        'post_id': post_id,
+                    },
+                    success: function(response){
+                        if(likeText === 'Unlike')
+                        {
+                            $(`.like-btn${post_id}`).text('Like')
+                            res = trim_cnt - 1
+                        }
+                        else{
+                            $(`.like-btn${post_id}`).text('Unlike')
+                            res = trim_cnt + 1
+                        }
+
+                        $(`.like-cnt${post_id}`).text(res + ' Likes')
+                    },
+                    error: function(response){
+                        console.log('error', response)
+                    }
+                })
+                
+            })
+            
+        });
+        
+    </script>
+{% endblock scripts%}
