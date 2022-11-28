@@ -30,7 +30,7 @@
                                         <p class="small text-muted mb-2">{{ post.comments.count }} Comments  </p>
                                     </div>
                                         <a class="col-12 px-2" href="{% url 'like-post' post.account post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-hand-thumbs-up"></i></a>
-                                        <a class="col-12 px-2" href="{% url 'unlike-post' post.account post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-hand-thumbs-down"></i></a>
+                                        
                                         <a class="col-12 px-2" href="{% url 'comment-post' post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-chat-left-text"></i></a>
                                         <a href="{% url 'post-details' post.id %}" class="btn btn-sm btn-secondary md-4"> View details</a>
                                 </div>

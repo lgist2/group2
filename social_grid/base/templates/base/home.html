@@ -113,11 +113,15 @@
                                             <p class="small text-muted mb-2">{{ repost.post.likes.count }} Likes </p>
                                             <p class="small text-muted mb-2">{{ repost.post.comments.count }} Comments</p>
                                         </div>
-                                        {% if active_user not in repost.post.likes.all %}
-                                            <a class="col-12 px-2" href="{% url 'like-post' repost.original repost.post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-hand-thumbs-up"></i></a>
-                                        {% else %}
-                                            <a class="col-12 px-2" href="{% url 'like-post' repost.original repost.post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-hand-thumbs-down"></i></a>
-                                        {% endif %}
+                                            <form method="POST" action="{% url 'like-post' repost.original repost.post.id %}" class="like-form" id="{{post.id}}">
+                                                {% csrf_token %}
+                                                {% if active_user not in repost.post.likes.all %}
+                                                        <button class="btn btn-sm btn-secondary md-4 like-btn{{repost.post.id}}">Like</button>  
+                                                {% else %}
+                                                        <button class="btn btn-sm btn-secondary md-4 like-btn{{repost.post.id}}">Unlike</button>       
+                                                {% endif %}
+                                            </form>
+                                            <br><br><br><br>
                                             <a class="col-12 px-2" href="{% url 'comment-post' repost.post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-chat-left-text"></i></a>
                                             <a class="col-12 px-2" href="{% url 'share-post-to' repost.post.id %}" style="color:#1D1F20;"><i class="fs-4 bi-share"></i></a>
                                             <a class="col-12 px-2" href="{% url 'repost' repost.post.id repost.original.id %}" style="color:#1D1F20;"><i class="fs-4 bi-repeat"></i></a>
