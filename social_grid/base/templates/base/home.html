@@ -43,6 +43,11 @@
                         <h7><a class="nav-link align-middle px-0" href="{% url 'reposts' %}" style="color:#0dcaf0;"><i class="fs-4 bi-repeat"></i> Reposts</a></h7>
                     </li>
                 </ul>
+                <form class="d-flex" method="POST" action="{% url 'search-post' %}">
+                    {% csrf_token %}
+                    <button  class="btn btn-outline-info me-2" type="submit"><i class="fs-6 bi-search"></i></button>
+                    <input class="form-control me-4" type="text" placeholder="Search For Posts" name="search">
+                  </form>
                 
             </div>
         </div>

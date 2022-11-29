@@ -111,7 +111,7 @@ def search_post(request):
     real = False
     if request.method == 'POST':
         search = request.POST['search']
-        posts = Post.objects.filter(title__contains=search) | Post.objects.filter(date_created__contains=search)
+        posts = Post.objects.filter(title__contains=search) | Post.objects.filter(date_created__contains=search) | Post.objects.filter(body__contains=search) | Post.objects.filter(hashtags__contains=search)
         if posts.exists():
             real = True
         current_user = request.user
